@@ -1,21 +1,35 @@
-#include <menu.h>
-#include <libreria_global.h>
-#include <Funciones.h>
+#include<limits>
+#include "menu.h"
+#include "Funciones.h"
+#include "archivos.h"
 
 int main() {
-    unsigned int cant_clientes=0;
+
+    //----variables---//
+    Clases* misclases;
+    Clientes* misclientes;
+    Asistencia* asistencias;
+
     unsigned int cant_clases=0;
+    unsigned int cant_clientes=0;
     unsigned int cant_asistencias=0;
     unsigned int idcliente;
     unsigned int eleccion1=0;
     unsigned int eleccion2=0;
     unsigned int eleccion3=0;
-    unsigned int misclientes =0;
-    unsigned int misclases=0;
 
     //----apertura de archivos----//
     ifstream archivo;
     archivo.open("C:/Qt/clasesGYM.csv",ios::in);
+    lecturaClases(archivo,misclases,cant_clases);
+    archivo.close();
+    archivo.open("c:/Qt/clientesGYM.csv",ios::in);
+    lecturaClientes(archivo,misclientes,cant_clientes);
+    archivo.close();
+    archivo.open("c:/Qt/asistenciasGYM.dat",ios::binary);
+    archivo.close();
+
+
 
     //------------------main--------------------//
     do{

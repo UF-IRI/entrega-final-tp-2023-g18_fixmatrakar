@@ -1,37 +1,23 @@
-#include <archivos.h>
-#include <libreria_global.h>
-#include <Funciones.h>
-#include <sstream>
-#include <fstream>
-//typedef struct{
-//unsigned int idClase;
-//time_t fechaInscripcion;
-//}Inscripcion;
-
-//typedef struct{
-//    unsigned  idCliente,cantInscriptos;
-//    Inscripcion* CursosInscriptos;
-//}Asistencia;
-
+#include "archivos.h"
+#include "Funciones.h"
 void leerArchivoAsistenciaB(fstream& archi, Asistencia *&asistencia, unsigned int CantAsistencia) {
-    if (archi.is_open()) {
+    if (archi.is_open()) {//verifico que este abienrto
         archi.clear();//Limpio
         archi.seekg(0);//Busco inicio
         unsigned int i=0;
-        while (i<CantAsistencia && !archi.eof()) {  // Mientras no se llegue al final del archivo
+        while (i<CantAsistencia && !archi.eof()) {  // Mientras no se llegue al final del archivo y sea menor a la cant de asist
 
-            archi.read(reinterpret_cast<char*>(&asistencia[i].idCliente), sizeof(unsigned int));
-            archi.read(reinterpret_cast<char*>(&asistencia[i].cantInscriptos), sizeof(unsigned int));
             incrementarAsistencias(asistencia, CantAsistencia);
-
+            archi.read((char*)&asistencia[i].idCliente, sizeof(unsigned int)); //leo id
+            archi.read((char*)&asistencia[i].cantInscriptos, sizeof(unsigned int));//Leocantinsc
+            incrementarInscripciones(asistencia,asistencia[CantAsistencia-1].cantInscriptos);}
             for (unsigned int j = 0; j < asistencia->cantInscriptos; j++) {// Leer cada Inscripcion
-                archi.read(reinterpret_cast<char*>(&asistencia[i].CursosInscriptos[j].idClase), sizeof(unsigned int));
-                archi.read(reinterpret_cast<char*>(&asistencia[i].CursosInscriptos[j].fechaInscripcion), sizeof(time_t));
-                incrementarInscripciones(asistencia,CantAsistencia);
-            }
+                archi.read((char*)&asistencia[i].CursosInscriptos[j].idClase, sizeof(unsigned int));
+                archi.read((char*)&asistencia[i].CursosInscriptos[j].fechaInscripcion, sizeof(time_t));
 
-            i++;}
-    }}
+
+            i++;
+            }}}
 
 void escribirArchivoAsistencia( ofstream &archi, Asistencia *asistencia, unsigned int cantAsistencias){
     if(archi.is_open()){

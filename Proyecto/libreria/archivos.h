@@ -3,7 +3,8 @@
 #include <libreria_global.h>
 #include<sstream>
 #include <fstream>
-#include<Funciones.h>
+#include <ctime>
+#include"Estructuras.h"
 typedef enum codArchivos{ErrorApertura=-1, ErrorEscritura=0, ExitoOperacion=1} eCodArchivos;
 void escribirArchivoAsistencia( fstream	*archi, Asistencia *asistencias);
 void lecturaClases(ifstream &archivo, Clases* &misclases, unsigned int &tam);

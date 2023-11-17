@@ -14,6 +14,7 @@ SOURCES += \
     menu.cpp
 
 HEADERS += \
+    Estructuras.h \
     Funciones.h \
     archivos.h \
     libreria_global.h \

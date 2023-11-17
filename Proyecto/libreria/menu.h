@@ -1,27 +1,7 @@
 #ifndef MENU_H
 #define MENU_H
 #include <libreria_global.h>
-typedef struct{
-    unsigned int idClase;
-    time_t fechaInscripcion;
-}Inscripcion;
-
-typedef struct{
-    unsigned  idCliente,cantInscriptos;
-    Inscripcion* CursosInscriptos;
-}Asistencia;
-
-typedef struct{
-    unsigned int idclase;
-    string nombre,horario;
-    unsigned int cupomax;//
-} Clases;
-
-typedef struct{
-    unsigned int idcliente;
-    string nombre,apellido,email,telefono,fechaNac;
-    int estado;
-}Clientes;
+#include"Estructuras.h"
 bool BuscarCliente(Clientes*misclientes,unsigned int idcliente, unsigned int tam);
 void LimpiarBuffer();
 void menuClases(Clases*misclases,unsigned int tam);
