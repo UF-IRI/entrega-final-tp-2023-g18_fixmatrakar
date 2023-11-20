@@ -22,10 +22,10 @@ void leerArchivoAsistenciaB(fstream& archi, Asistencia *&asistencia, unsigned in
 void escribirArchivoAsistencia( ofstream &archi, Asistencia *asistencia, unsigned int cantAsistencias){
     if(archi.is_open()){
         for (unsigned int i=0; i<cantAsistencias; i++) {
-            archi.write(reinterpret_cast<char*>(&asistencia[i].idCliente), sizeof(unsigned int));
-            archi.write(reinterpret_cast<char*>(&asistencia[i].cantInscriptos), sizeof(unsigned int));
+            archi.write((char*)(&asistencia[i].idCliente), sizeof(unsigned int));
+            archi.write((char*)(&asistencia[i].cantInscriptos), sizeof(unsigned int));
             for(unsigned int j = 0; j < asistencia[i].cantInscriptos; j++) {
-                archi.write(reinterpret_cast<char*>(&asistencia[i].CursosInscriptos[j]), sizeof(Inscripcion));
+                archi.write((char*)(&asistencia[i].CursosInscriptos[j]), sizeof(Inscripcion));
             } } }
     archi.close();
 
