@@ -1,12 +1,12 @@
-#ifndef LIBRERIA_H
-#define LIBRERIA_H
+//#ifndef LIBRERIA_H
+//#define LIBRERIA_H
 
-#include "libreria_global.h"
+//#include "libreria_global.h"
 
-class LIBRERIA_EXPORT Libreria
-{
-public:
-    Libreria();
-};
+//class LIBRERIA_EXPORT Libreria
+//{
+//public:
+//    Libreria();
+//};
 
-#endif // LIBRERIA_H
+//#endif // LIBRERIA_H

@@ -10,5 +10,5 @@ void escribirArchivoAsistencia( fstream	*archi, Asistencia *asistencias);
 void lecturaClases(ifstream &archivo, Clases* &misclases, unsigned int &tam);
 void lecturaClientes(ifstream &archivo, Clientes* &misclientes, unsigned int &tam);
 void lecturaAsistencias(ifstream &archivo,Asistencia*asistencias,unsigned int &tam);
-void leerArchivoAsistenciaB(fstream& archi, Asistencia *&asistencia, unsigned int CantAsistencia);
+void leerArchivoAsistenciaB(fstream& archi, Asistencia *&asistencia);
 #endif // ARCHIVOS_H

@@ -1,23 +1,32 @@
 #include "archivos.h"
 #include "Funciones.h"
-void leerArchivoAsistenciaB(fstream& archi, Asistencia *&asistencia, unsigned int CantAsistencia) {
-    if (archi.is_open()) {//verifico que este abienrto
-        archi.clear();//Limpio
-        archi.seekg(0);//Busco inicio
-        unsigned int i=0;
-        while (i<CantAsistencia && !archi.eof()) {  // Mientras no se llegue al final del archivo y sea menor a la cant de asist
 
-            incrementarAsistencias(asistencia, CantAsistencia);
-            archi.read((char*)&asistencia[i].idCliente, sizeof(unsigned int)); //leo id
-            archi.read((char*)&asistencia[i].cantInscriptos, sizeof(unsigned int));//Leocantinsc
-            incrementarInscripciones(asistencia,asistencia[CantAsistencia-1].cantInscriptos);}
-            for (unsigned int j = 0; j < asistencia->cantInscriptos; j++) {// Leer cada Inscripcion
-                archi.read((char*)&asistencia[i].CursosInscriptos[j].idClase, sizeof(unsigned int));
-                archi.read((char*)&asistencia[i].CursosInscriptos[j].fechaInscripcion, sizeof(time_t));
+unsigned int leerArchivoAsistenciaB(ifstream& archi, Asistencia*& asistencias) {
+    if (archi.is_open()) {
+        archi.clear();
+        archi.seekg(0);
 
+        unsigned int cantAsistencia = 0; // Variable para saber tamaño de asistencias
 
-            i++;
-            }}}
+        while (!archi.eof()) {
+            Asistencia* nuevaAsistencia = new Asistencia; // Crear una nueva asistencia
+
+            archi.read((char*)&nuevaAsistencia->idCliente, sizeof(unsigned int));
+            archi.read((char*)&nuevaAsistencia->cantInscriptos, sizeof(unsigned int));//leo cada asistencia
+
+            nuevaAsistencia->CursosInscriptos = new Inscripcion[nuevaAsistencia->cantInscriptos];//veo sus cursos y creo inscrispciones de ese tamanio
+
+            for (unsigned int j = 0; j < nuevaAsistencia->cantInscriptos; j++) {
+                archi.read((char*)&nuevaAsistencia->CursosInscriptos[j], sizeof(Inscripcion));//leo cada inscripcion
+            }
+            Asistencia* temp = new Asistencia[cantAsistencia + 1];
+            for (unsigned int i = 0; i < cantAsistencia; ++i) {
+                temp[i] = asistencias[i];
+            }
+
+            cantAsistencia++;}
+        return cantAsistencia;}
+    return 0;}
 
 void escribirArchivoAsistencia( ofstream &archi, Asistencia *asistencia, unsigned int cantAsistencias){
     if(archi.is_open()){
@@ -30,6 +39,8 @@ void escribirArchivoAsistencia( ofstream &archi, Asistencia *asistencia, unsigne
     archi.close();
 
 }
+
+
 
 void lecturaClases(ifstream &archivo, Clases* &misclases, unsigned int &tam){
     string linea;
