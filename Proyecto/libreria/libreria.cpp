@@ -1,5 +1,5 @@
 #include "libreria.h"
 
-Libreria::Libreria()
-{
-}
+//Libreria::Libreria()
+//{
+//}

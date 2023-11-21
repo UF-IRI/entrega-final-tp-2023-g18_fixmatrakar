@@ -2,6 +2,7 @@
 #define ESTRUCTURAS_H
 #include <ctime>
 #include <string>
+
 using namespace std;
 typedef struct{
     unsigned int idClase;

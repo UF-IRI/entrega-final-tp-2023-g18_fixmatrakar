@@ -1,167 +1,58 @@
 #include<limits>
-#include "menu.h"
-#include "Funciones.h"
 #include "archivos.h"
 
 int main() {
 
     //----variables---//
-    Clases* misclases=nullptr;
-    Clientes* misclientes=nullptr;
-    Asistencia* asistencias=nullptr;
-    misclases= NULL;
-    misclientes= NULL;
-    asistencias= NULL;
-    unsigned int cant_clases=0;
-    unsigned int cant_clientes=0;
-    unsigned int cant_asistencias=0;
-    unsigned int idcliente;
+//    Clases* misclases=nullptr;
+//    Clientes* misclientes=nullptr;
+//    misclases= NULL;
+//    misclientes= NULL;
+//    unsigned int cant_clases=0;
+//    unsigned int cant_clientes=0;
+//    unsigned int cant_asistencias=0;
+
 //    unsigned int eleccion1=0;
 //    unsigned int eleccion2=0;
 //    unsigned int eleccion3=0;
 
     //----apertura de archivos----//
-    ifstream archivo;
-    archivo.open("C:/Qt/clasesGYM.csv",ios::in);
-    lecturaClases(archivo,misclases,cant_clases);
-    archivo.close();
-    archivo.open("c:/Qt/clientesGYM.csv",ios::in);
-    lecturaClientes(archivo,misclientes,cant_clientes);
-    archivo.close();
-    archivo.open("c:/Qt/asistenciasGYM.dat", ios::in | ios::binary);
-    archivo.close();
 
-    for (unsigned int i = 0; i < cant_asistencias; ++i) {
-        delete[] asistencias[i].CursosInscriptos;
+    const int cantAsistencias = 2;
+    Asistencia dummyAsistencias[cantAsistencias];
+
+    // Guardo la datos de mierda
+    for (int i = 0; i < cantAsistencias; i++) {
+        dummyAsistencias[i].idCliente = i + 1;//id consecuente
+        dummyAsistencias[i].cantInscriptos = 3; // creo 3 inscripciones
+        dummyAsistencias[i].CursosInscriptos = new Inscripcion[dummyAsistencias[i].cantInscriptos];
+
+        for (unsigned int j = 0; j < dummyAsistencias[i].cantInscriptos; j++) {
+            dummyAsistencias[i].CursosInscriptos[j].idClase=1;
+            dummyAsistencias[i].CursosInscriptos[j].fechaInscripcion=time(NULL);
+
+        }
+
     }
-    delete[] asistencias;
-//    //------------------main--------------------//
-//    do{
-//        cout<<"--------GIMNASIO MUSCULITO----------"<<endl;
-//        cout<<"Ingrese su id:"<<endl;
-//        cin>>idcliente;
-//        if(cin.fail())// si no ingresa un numero
-//            LimpiarBuffer();
+                             /*escribo archivodemierda*/
 
-//        if(!BuscarCliente(misclientes,idcliente,cant_clientes)){
-//            cout<<"Su id no es valido o su cuota esta impaga. Vuelva a intentarlo o comuniquese con el gimnasio"<<endl;
-//        }else{ int dia=diaDeHoy();
-//            switch(dia){
-//            case 0:{//domingo
-
-//            }
-//            case 1:{//lunes
-
-//            }
-//            case 2:{//martes
-
-//            }
-//            case 3:{//miercoles
-
-//            }
-//            case 4:{//jueves
-//                clienteNombre(misclientes,cant_clientes,idcliente);// le damos la bienvenida mostrando su nombre en pantalla
-//                do{
-//                    menuOpciones();//le mostramos las opciones
-//                    cin>>eleccion1;
-//                    if(cin.fail()||eleccion1>4){
-//                        LimpiarBuffer();
-//                        eleccion1=0;
-//                    }
-
-//                    switch(eleccion1){
-//                    case 1:{//anotarse
-//                        do{
-//                            menuClases(misclases,cant_clases);
-//                            cin>>eleccion2;
-//                            if(cin.fail()||eleccion2>8){
-//                                LimpiarBuffer();
-//                                eleccion2=0;
-//                            }
-//                            switch(eleccion2){//segun la clase que elije
-//                            case 1:{//spinning
-//                                do{
-//                                    menuHorarios(misclases,cant_clases,eleccion2);
-//                                    cin>>eleccion3;
-//                                    if(cin.fail()||eleccion3>6){
-//                                        LimpiarBuffer();
-//                                        eleccion3=0;
-//                                    }
-//                                    if(eleccion3==6);
-//                                    break;
-
-//                                }while(!cin.fail()&&eleccion3==0);
-//                                eleccion2=0;
-//                                //                    eleccion3=0;
-//                                break;
-//                            }
-
-//                            case 2:{//yoga
-//                                menuHorarios(misclases,cant_clases,eleccion2);
-
-//                            }
-//                            case 3:{//pilates
-//                                menuHorarios(misclases,cant_clases,eleccion2);
-
-//                            }
-//                            case 4:{//stretching
-//                                menuHorarios(misclases,cant_clases,eleccion2);
-
-//                            }
-//                            case 5:{//zumba
-//                                menuHorarios(misclases,cant_clases,eleccion2);
-
-//                            }
-//                            case 6:{//boxeo
-//                                menuHorarios(misclases,cant_clases,eleccion2);
-
-//                            }
-//                            case 7:{//musculacion
-//                                menuHorarios(misclases,cant_clases,eleccion2);
-
-//                            }
-//                            case 8:{
-
-//                                break;
-//                            }
-//                            }
-//                            eleccion1=0;
+ofstream Earchibinr("archivodemierda.dat", ios::binary);//Escribimos archivo con kk
+   if(Earchibinr.is_open()) {
+        for (int i=0; i<cantAsistencias; i++) {
+            Earchibinr.write((char*)&dummyAsistencias[i].idCliente, sizeof(unsigned int));
+            Earchibinr.write((char*)&dummyAsistencias[i].cantInscriptos, sizeof(unsigned int));
+            for(unsigned int j = 0; j < dummyAsistencias[i].cantInscriptos; j++) {
+            Earchibinr.write((char*)&dummyAsistencias[i].CursosInscriptos[j],sizeof(Inscripcion));}cout<<"se escribio archivo de mierda";}}
+ Earchibinr.close();
 
 
-//                        }while(!cin.fail()&&eleccion2==0||eleccion3!=0);
+                                /*Leo archivodemierda.dat*/
+ ifstream Larchibinr("archivodemierda.dat", ios::binary);
+ unsigned int cant=0;
+ Asistencia *lectura;
+ cant= leerArchivoAsistenciaB(Larchibinr,lectura);
+ cout<<cant;
 
-//                    }
-//                    case 2:{//darse de baja
+  return 0;
+ }
 
-//                    }
-//                    case 3:{//ver mis clases
-
-//                    }
-//                    case 4:{
-//                        break;
-//                    }
-//                    }
-//                }while(!cin.fail()&&eleccion1==0||eleccion2==8);
-
-
-
-
-//            }
-//            case 5:{//viernes
-
-//            }
-//            case 6:{//sabado
-
-//            }
-
-//            }
-
-
-
-
-//        }
-
-//    }while(cin.fail()||!BuscarCliente(misclientes,idcliente,cant_clientes));
-
-    return 0;
-}

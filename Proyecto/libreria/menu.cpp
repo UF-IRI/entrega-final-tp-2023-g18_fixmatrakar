@@ -5,17 +5,17 @@
 
 //    }
 //}
-void VerMisClases(Asistencia *asistencias,Clases* misclases,unsigned int cant_asistencias,unsigned int cant_clases,unsigned int idcliente){
-    for(unsigned int i=0;i<cant_asistencias;i++){
-        if(asistencias[i].idCliente==idcliente){
-            for(unsigned int j=0;j<asistencias[i].cantInscriptos;j++){
-                unsigned int idclase=asistencias[i].CursosInscriptos[j].idClase;
-                BuscarMiClase(misclases,cant_clases,idclase);
-            }
-        }
+//void VerMisClases(Asistencia *asistencias,Clases* misclases,unsigned int cant_asistencias,unsigned int cant_clases,unsigned int idcliente){
+//    for(unsigned int i=0;i<cant_asistencias;i++){
+//        if(asistencias[i].idCliente==idcliente){
+//            for(unsigned int j=0;j<asistencias[i].cantInscriptos;j++){
+//                unsigned int idclase=asistencias[i].CursosInscriptos[j].idClase;
+//                BuscarMiClase(misclases,cant_clases,idclase);
+//            }
+//        }
 
-    }
-}
+//    }
+//}
 void BuscarMiClase(Clases*misclases,unsigned int tam, unsigned int idcurso){
     for(unsigned int i=0;i<tam;i++){
         if(misclases[i].idclase==idcurso){
