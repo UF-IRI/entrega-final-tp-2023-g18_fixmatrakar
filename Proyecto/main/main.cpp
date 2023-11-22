@@ -45,7 +45,7 @@ ofstream Earchibinr("archivodemierda.dat", ios::binary);//Escribimos archivo con
             Earchibinr.write((char*)&dummyAsistencias[i].CursosInscriptos[j],sizeof(Inscripcion));}cout<<"se escribio archivo de mierda";}}
  Earchibinr.close();
 
-                                /*Leo archivodemierda.dat*/
+   /*-----------------Leo archivodemierda.dat-------------*/
  ifstream Larchibinr("archivodemierda.dat", ios::binary);
  unsigned int cant=0;
  Asistencia *lectura=nullptr;

@@ -1,33 +1,36 @@
 #include "archivos.h"
 #include "Funciones.h"
 
-unsigned int leerArchivoAsistenciaB(ifstream& archi, Asistencia*& asistencias) {
+
+ unsigned int leerArchivoAsistenciaB(ifstream& archi, Asistencia*& asistencias) {
     if (archi.is_open()) {
         archi.clear();
         archi.seekg(0);
 
-        unsigned int cantAsistencia = 0; // Variable para saber tamaño de asistencias
+        unsigned int cantAsistencia = 0; // Variable para saber cantidad de asistencias
 
         while (!archi.eof()) {
             Asistencia* nuevaAsistencia = new Asistencia; // Crear una nueva asistencia
 
             archi.read((char*)&nuevaAsistencia->idCliente, sizeof(unsigned int));
-            archi.read((char*)&nuevaAsistencia->cantInscriptos, sizeof(unsigned int));//leo cada asistencia
+            archi.read((char*)&nuevaAsistencia->cantInscriptos, sizeof(unsigned int)); // leo cada asistencia
 
-            nuevaAsistencia->CursosInscriptos = new Inscripcion[nuevaAsistencia->cantInscriptos];//veo sus cursos y creo inscrispciones de ese tamanio
+            nuevaAsistencia->CursosInscriptos = new Inscripcion[nuevaAsistencia->cantInscriptos]; // veo sus cursos y creo inscripciones de ese tamaño
 
             for (unsigned int j = 0; j < nuevaAsistencia->cantInscriptos; j++) {
-                archi.read((char*)&nuevaAsistencia->CursosInscriptos[j], sizeof(Inscripcion));//leo cada inscripcion
+                archi.read((char*)&nuevaAsistencia->CursosInscriptos[j], sizeof(Inscripcion)); // leo cada inscripcion
             }
-            asistencias[cantAsistencia] = *nuevaAsistencia; // Guardar la nueva asistencia
-            cantAsistencia++;
+
+             cantAsistencia++;
+             incrementarAsistencia(asistencias, cantAsistencia); // Incrementar el tamaño
+             incrementarInscripciones(asistencias, nuevaAsistencia->cantInscriptos);
+            asistencias[cantAsistencia - 1] = *nuevaAsistencia; // Guardar la nueva asistencia
         }
-        cout << "Se leyó el archivodemierda";
-            return cantAsistencia;
+        cout << "Se leyó el archivo ";//BORRAR SOLO PARA VERIFICAR
+            return cantAsistencia; // Devolver la cantidad de asistencias leídas
     }
-    return 4;}//4 no hizo takataka
-
-
+    return 4; // No hizo takataka
+}
 void escribirArchivoAsistencia( ofstream &archi, Asistencia *asistencia, unsigned int cantAsistencias){
     if(archi.is_open()){
         for (unsigned int i=0; i<cantAsistencias; i++) {

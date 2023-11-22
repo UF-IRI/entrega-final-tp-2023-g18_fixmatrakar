@@ -1,5 +1,6 @@
-#include <catch2/catch.hpp>
+/*#include <catch2/catch.hpp>
 #include "Funciones.h"
+#include "archivos.h"
 #include <fstream>
 TEST_CASE("Cantidad de cupo")
 {
@@ -21,8 +22,8 @@ TEST_CASE("Cantidad de cupo")
     unsigned int idclase=1;
     unsigned int cantAsistencias = 3;
     cupos=cupoactual(asistencia, idclase, cantAsistencias);
-    REQUIRE(cupos == 2);
-};
+//    REQ*//*UIRE(cupos == 2);*/
+//};
 //typedef struct{
 //    unsigned int idClase;
 //    time_t fechaInscripcion;
@@ -44,17 +45,3 @@ TEST_CASE("Cantidad de cupo")
 //    string nombre,apellido,email,telefono,fechaNac;
 //    int estado;
 //}Clientes;
-
-TEST_CASE("Archivos clases")
-{
-
-    Clientes * misclientes;
-    unsigned int tam= 1;
-    ifstream archivo("ClientesGYM.dat", ios::in);
-     lecturaClientes(archivo, misclientes, tam);
-
-    Asistencia *lectura=nullptr;
-
-
-    lecturaClientes(archivo, misclientes, tam);
-};

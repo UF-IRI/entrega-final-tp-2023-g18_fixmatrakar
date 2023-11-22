@@ -21,24 +21,26 @@ typedef struct{
 //bool hayEspacio(string nombre, Clases*clase, unsigned int idclase){
 
 //}
-bool hayEspacio(int nombre,unsigned int cupoActual, int*maximo) {
+bool hayEspacio(unsigned int nombre, unsigned int cupoActual, unsigned int* maximo) {
     switch (nombre) {
     case Spinning:
-        return (maximo[Spinning] - cupoActual < 0);
+        return (cupoActual < maximo[Spinning]);
     case Yoga:
-        return (maximo[Yoga] - cupoActual < 0);
+        return (cupoActual < maximo[Yoga]);
     case Pilates:
-        return (maximo[Pilates] - cupoActual < 0);
+        return (cupoActual < maximo[Pilates]);
     case Stretching:
-        return (maximo[Stretching] - cupoActual < 0);
+        return (cupoActual < maximo[Stretching]);
     case Zumba:
-        return (maximo[Zumba] - cupoActual < 0);
+        return (cupoActual < maximo[Zumba]);
     case Boxeo:
-        return (maximo[Boxeo] - cupoActual < 0);
+        return (cupoActual < maximo[Boxeo]);
     default:
-        cout << "Domirste" << endl;
+        cout << "   Flashiaste ura " << endl;
         return false; // Retorna un valor por defecto en caso de error
     }
+
+
 }
 unsigned int ClasesRepetidas(Asistencia *&AsistUnica, unsigned int CantAsist) {
     Asistencia *aux = new Asistencia;
@@ -145,36 +147,30 @@ void incrementarClientes(Clientes* &misclientes, unsigned int &tam){
 }
 
 
-void incrementarAsistencias(Asistencia* &asistencias, unsigned int &tam){
-    if(asistencias==nullptr){
-        if(tam<=0){
-            asistencias = new Asistencia[++tam];
-        }
+void incrementarAsistencia(Asistencia* &asistencias, unsigned int &tam){
+    if(asistencias == nullptr){
+        tam = 1;
+        asistencias = new Asistencia[tam];
         return;
     }
 
-    Asistencia* temporal = new Asistencia[++tam];
+    Asistencia* temporal = new Asistencia[tam + 1];
 
     for(unsigned int i = 0; i < tam-1; i++)
         temporal[i] = asistencias[i];
-
-
     asistencias = temporal;
 
 }
-void incrementarInscripciones(Asistencia* &asistencias, unsigned int &tam){
-    if(asistencias->CursosInscriptos==nullptr){
-        if(tam<=0){
-            asistencias->CursosInscriptos = new Inscripcion[++tam];
-        }
+
+void incrementarInscripciones(Asistencia* &asistencias, unsigned int &tam) {
+    if (asistencias->CursosInscriptos == nullptr) {
+        asistencias->CursosInscriptos = new Inscripcion[tam];
         return;
     }
 
-    Inscripcion* temporal = new Inscripcion[++tam];
+    Inscripcion* aux = new Inscripcion[tam];
 
-    for(unsigned int i = 0; i < tam-1; i++)
-        temporal[i] = asistencias->CursosInscriptos[i];
-
-
-    asistencias->CursosInscriptos = temporal;
+     for(unsigned int i = 0; i < tam; i++)
+        aux[i] = asistencias->CursosInscriptos[i];
+    asistencias->CursosInscriptos = aux;
 }
