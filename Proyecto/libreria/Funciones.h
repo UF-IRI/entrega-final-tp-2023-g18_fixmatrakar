@@ -8,6 +8,9 @@ const int maximo [6]={45, 25, 15,  40, 50, 30};// cupo maximo por clase
 
 unsigned int cupoactual(Asistencia* asistencias, unsigned int idclase, unsigned int cantAsistencias);
 unsigned int BuscarIdClases(Clases *clases, unsigned int horario, string nombre);
+unsigned int buscarClase();
+void inscribir(Asistencia *& asist, Clases *,unsigned int &CantAsistencias, unsigned int idcliente);
+void Aumentarcupo();
 void incrementarClases(Clases* &misclases, unsigned int &tam);
 void incrementarClientes(Clientes* &misclientes, unsigned int &tam);
 void incrementarAsistencias(Asistencia* &asistencias, unsigned int &tam);

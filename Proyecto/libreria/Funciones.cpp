@@ -16,7 +16,36 @@ typedef struct{
     unsigned int idcliente;
     string nombre,apellido,email,telefono,fechaNac;
     int estado;
-}Clientes*/;
+}Clientes*/
+
+
+void inscribir(Asistencia *& asist, Clases *,unsigned int &CantAsistencias, unsigned int idcliente)
+{
+
+        Asistencia* nuevasAsistencias = new Asistencia[CantAsistencias + 1];
+
+
+        for (unsigned int i = 0; i < CantAsistencias ; i++) {
+            nuevasAsistencias[i] = asist[i];
+        }
+
+        // Agrega la nueva asistencia al final
+        nuevasAsistencias[CantAsistencias ].idCliente = idcliente;
+        nuevasAsistencias[CantAsistencias ].cantInscriptos = asist->cantInscriptos++;
+        nuevasAsistencias[CantAsistencias ].CursosInscriptos = new Inscripcion[asist->cantInscriptos];
+        for (unsigned int i = 0; i < CantAsistencias; i++) {
+            nuevasAsistencias[CantAsistencias].CursosInscriptos[i] = asist->CursosInscriptos[i];       }
+
+
+        CantAsistencias++;
+
+
+        delete[] asist;
+
+        asist = nuevasAsistencias;
+    }
+
+
 unsigned int cupoactual(Asistencia *asistencia, unsigned int idclase, unsigned int cantAsistencias) {
     unsigned int contador = 0;
     unsigned int i = 0 ;
