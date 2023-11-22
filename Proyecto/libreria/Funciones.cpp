@@ -18,9 +18,55 @@ typedef struct{
     int estado;
 }Clientes*/
 
+//bool hayEspacio(string nombre, Clases*clase, unsigned int idclase){
 
-void inscribir(Asistencia *& asist, Clases *,unsigned int &CantAsistencias, unsigned int idcliente)
-{
+//}
+bool hayEspacio(int nombre,unsigned int cupoActual, int*maximo) {
+    switch (nombre) {
+    case Spinning:
+        return (maximo[Spinning] - cupoActual < 0);
+    case Yoga:
+        return (maximo[Yoga] - cupoActual < 0);
+    case Pilates:
+        return (maximo[Pilates] - cupoActual < 0);
+    case Stretching:
+        return (maximo[Stretching] - cupoActual < 0);
+    case Zumba:
+        return (maximo[Zumba] - cupoActual < 0);
+    case Boxeo:
+        return (maximo[Boxeo] - cupoActual < 0);
+    default:
+        cout << "Domirste" << endl;
+        return false; // Retorna un valor por defecto en caso de error
+    }
+}
+unsigned int ClasesRepetidas(Asistencia *&AsistUnica, unsigned int CantAsist) {
+    Asistencia *aux = new Asistencia;
+    aux->idCliente = AsistUnica->idCliente;
+    aux->cantInscriptos = AsistUnica->cantInscriptos;
+    aux->CursosInscriptos = new Inscripcion[AsistUnica->cantInscriptos];
+    for(unsigned int i = 0; i < aux->cantInscriptos; i++) {
+        for(unsigned int j = i + 1; j < aux->cantInscriptos; j++) {
+            if(aux->CursosInscriptos[i].idClase == aux->CursosInscriptos[j].idClase) {
+                aux->CursosInscriptos[i].idClase = aux->CursosInscriptos[j].idClase;// Tapo la clase
+                aux->CursosInscriptos[j].idClase = aux->CursosInscriptos[aux->cantInscriptos - 1].idClase;
+                aux->cantInscriptos--; // Resto 1 a cantidad total de inscripciones
+                CantAsist--;
+                j--;
+            }
+        }
+    }
+    delete[] AsistUnica->CursosInscriptos;
+    delete AsistUnica;
+
+    // Asignar la estructura auxiliar a AsistUnica
+    AsistUnica = aux;
+
+    return CantAsist;
+}
+
+
+void inscribir(Asistencia *& asist,unsigned int &CantAsistencias, unsigned int idcliente){
 
         Asistencia* nuevasAsistencias = new Asistencia[CantAsistencias + 1];
 

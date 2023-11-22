@@ -17,7 +17,7 @@ typedef struct{
 typedef struct{
     unsigned int idclase;
     string nombre,horario;
-    unsigned int cupomax;//
+    unsigned int cupoactual;//
 } Clases;
 
 typedef struct{

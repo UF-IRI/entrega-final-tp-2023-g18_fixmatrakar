@@ -11,4 +11,5 @@ void lecturaClases(ifstream &archivo, Clases* &misclases, unsigned int &tam);
 void lecturaClientes(ifstream &archivo, Clientes* &misclientes, unsigned int &tam);
 void lecturaAsistencias(ifstream &archivo,Asistencia*asistencias,unsigned int &tam);
 unsigned int leerArchivoAsistenciaB(ifstream& archi, Asistencia *&asistencia);
+
 #endif // ARCHIVOS_H

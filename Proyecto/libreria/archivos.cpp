@@ -19,18 +19,13 @@ unsigned int leerArchivoAsistenciaB(ifstream& archi, Asistencia*& asistencias) {
             for (unsigned int j = 0; j < nuevaAsistencia->cantInscriptos; j++) {
                 archi.read((char*)&nuevaAsistencia->CursosInscriptos[j], sizeof(Inscripcion));//leo cada inscripcion
             }
-//            Asistencia* temp = new Asistencia[cantAsistencia + 1];
-//            for (unsigned int i = 0; i < cantAsistencia; ++i) {
-//                temp[i] = asistencias[i];
-
-//            }
-
-            nuevaAsistencia++;
-            cantAsistencia++;}
-        cout<<"Se leyo archivodemierda";
-        return cantAsistencia;
-         }
-    return 4;}// no hizo takataka
+            asistencias[cantAsistencia] = *nuevaAsistencia; // Guardar la nueva asistencia
+            cantAsistencia++;
+        }
+        cout << "Se leyó el archivodemierda";
+            return cantAsistencia;
+    }
+    return 4;}//4 no hizo takataka
 
 
 void escribirArchivoAsistencia( ofstream &archi, Asistencia *asistencia, unsigned int cantAsistencias){
