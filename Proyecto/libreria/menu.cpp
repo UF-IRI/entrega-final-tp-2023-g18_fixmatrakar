@@ -1,4 +1,5 @@
 #include "menu.h"
+#include "Funciones.h"
 #include <limits>
 //void menuHorarios(Clases*misclases, unsigned int eleccion1){
 //    switch(eleccion1){
@@ -27,9 +28,8 @@ void BuscarMiClase(Clases*misclases,unsigned int tam, unsigned int idcurso){
 void menuOpciones(){
     cout<<"Que desea hacer hoy?"<<endl;
     cout<<"1.Anotarme en una clase"<<endl;
-    cout<<"2.Darme de baja"<<endl;
-    cout<<"3.Ver mis clases"<<endl;
-    cout<<"4.Salir"<<endl;
+    cout<<"2.Ver mis clases"<<endl;
+    cout<<"3.Salir"<<endl;
 }
 void clienteNombre(Clientes*misclientes,unsigned int cant_clientes,unsigned int id){
     for(unsigned int i=0;i<cant_clientes;i++){
@@ -68,3 +68,141 @@ void menuClases(Clases*misclases,unsigned int tam){
         }
     }
 }
+void menuHorarios(Clases*misclases,int&cont,unsigned int cant_clases, unsigned int eleccion){
+
+    switch(eleccion){
+    case 1:{
+        for(unsigned int i=0;i<cant_clases;i++){
+            if(misclases[i].nombre=="Spinning"){
+                cout<<++cont<<"-"<<misclases[i].horario<<"hs"<<endl;
+            }
+        }
+        break;
+    }
+    case 2:{
+        for(unsigned int i=0;i<cant_clases;i++){
+            if(misclases[i].nombre=="Yoga"){
+                cout<<++cont<<"-"<<misclases[i].horario<<"hs"<<endl;
+            }
+        }
+        break;
+    }
+    case 3:{
+        for(unsigned int i=0;i<cant_clases;i++){
+            if(misclases[i].nombre=="Pilates"){
+                cout<<++cont<<"-"<<misclases[i].horario<<endl;
+            }
+        }
+        break;
+    }
+    case 4: {
+        for(unsigned int i=0;i<cant_clases;i++){
+            if(misclases[i].nombre=="Stretching"){
+                cout<<++cont<<"-"<<misclases[i].horario<<"hs"<<endl;
+            }
+        }
+    }
+    case 5: {
+        for(unsigned int i=0;i<cant_clases;i++){
+            if(misclases[i].nombre=="Zumba"){
+                cout<<++cont<<"-"<<misclases[i].horario<<"hs"<<endl;
+            }
+        }
+        break;
+    }
+    case 6: {
+        for(unsigned int i=0;i<cant_clases;i++){
+            if(misclases[i].nombre=="Boxeo"){
+                cout<<++cont<<"-"<<misclases[i].horario<<"hs"<<endl;
+            }
+        }
+        break;
+    }
+    case 7: {
+        for(unsigned int i=0;i<cant_clases;i++){
+            if(misclases[i].nombre=="Musculacion"){
+                cout<<++cont<<"-"<<misclases[i].horario<<"hs"<<endl;
+            }
+        }
+        break;
+    }
+
+    }
+
+}
+ClaseSeleccionada DevolverClase(Clases*misclases,unsigned int cant_clases, unsigned int eleccion2,unsigned int eleccion3){
+
+    ClaseSeleccionada claseElegida;
+    switch(eleccion2){
+    case 1:{
+        claseElegida.nombre="Spinning";
+        break;
+    }
+    case 2:{
+        claseElegida.nombre="Yoga";
+        break;
+    }
+    case 3:{
+        claseElegida.nombre="Pilates";
+         break;
+    }
+    case 4:{
+        claseElegida.nombre="Stretching";
+          break;
+    }
+    case 5:{
+        claseElegida.nombre="Zumba";
+           break;
+    }
+    case 6:{
+        claseElegida.nombre="Boxeo";
+            break;
+    }
+    case 7:{
+        claseElegida.nombre="Musculacion";
+             break;
+    }
+
+    }
+
+    unsigned int cant_horarios=0;
+    string* mishorarios=nullptr;
+
+    for(unsigned int i=0;i<cant_clases;i++){
+        if(misclases[i].nombre==claseElegida.nombre){
+            ResizeHorarios(cant_horarios,mishorarios);
+            mishorarios[cant_horarios-1]=misclases[i].horario;
+        }
+    }
+    for(unsigned int j=0;j<cant_horarios;j++){
+        if(j==eleccion3){
+            claseElegida.horario=mishorarios[j];
+        }
+    }
+
+    for(unsigned int i=0;i<cant_clases;i++){
+        if(misclases[i].nombre==claseElegida.nombre&&misclases[i].horario==claseElegida.horario)
+            claseElegida.id= misclases[i].idclase;
+    }
+    return claseElegida;
+}
+void ResizeHorarios(unsigned int&tam, string*& mishorarios){
+    if(mishorarios==nullptr){
+        if(tam<=0){
+            mishorarios = new string[++tam];
+        }
+        return;
+    }
+
+    string* temporal = new string[++tam];
+
+    for(unsigned int i = 0; i < tam-1; i++){
+        temporal[i] = mishorarios[i];
+    }
+
+    delete[] mishorarios;
+
+    mishorarios = temporal;
+
+}
+

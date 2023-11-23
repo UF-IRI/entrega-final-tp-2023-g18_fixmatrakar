@@ -123,8 +123,10 @@ void incrementarClases(Clases* &misclases, unsigned int &tam){
 
     Clases* temporal = new Clases[++tam];
 
-    for(unsigned int i = 0; i < tam-1; i++)
-        temporal[i] = misclases[i];
+    for(unsigned int i = 0; i < tam-1; i++){
+        temporal[i] = misclases[i];}
+
+    delete[]misclases;
 
 
     misclases = temporal;
@@ -139,9 +141,10 @@ void incrementarClientes(Clientes* &misclientes, unsigned int &tam){
 
     Clientes* temporal = new Clientes[++tam];
 
-    for(unsigned int i = 0; i < tam-1; i++)
-        temporal[i] = misclientes[i];
+    for(unsigned int i = 0; i < tam-1; i++){
+        temporal[i] = misclientes[i];}
 
+    delete[] misclientes;
 
     misclientes = temporal;
 

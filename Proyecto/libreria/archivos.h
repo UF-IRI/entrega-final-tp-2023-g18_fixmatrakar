@@ -1,6 +1,6 @@
 #ifndef ARCHIVO_H
 #define ARCHIVO_H
-#include <libreria_global.h>
+#include <global.h>
 #include<sstream>
 #include <fstream>
 #include <ctime>
