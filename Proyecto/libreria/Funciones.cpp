@@ -1,5 +1,4 @@
 #include "Funciones.h"
-#include "global.h"
 /*typedef struct{
     unsigned int idClase;
     time_t fechaInscripcion;
