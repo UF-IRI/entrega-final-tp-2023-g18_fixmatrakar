@@ -151,26 +151,38 @@ void incrementarAsistencia(Asistencia* &asistencias, unsigned int &tam){
     if(asistencias == nullptr){
         tam = 1;
         asistencias = new Asistencia[tam];
+        asistencias[tam].CursosInscriptos = new Inscripcion[asistencias->cantInscriptos];
         return;
     }
 
     Asistencia* temporal = new Asistencia[tam + 1];
-
-    for(unsigned int i = 0; i < tam-1; i++)
-        temporal[i] = asistencias[i];
-    asistencias = temporal;
-
-}
-
-void incrementarInscripciones(Asistencia* &asistencias, unsigned int &tam) {
-    if (asistencias->CursosInscriptos == nullptr) {
-        asistencias->CursosInscriptos = new Inscripcion[tam];
-        return;
+    for(unsigned int i = 0; i < tam; i++)
+    {
+        temporal[i].CursosInscriptos = new Inscripcion[asistencias[i].cantInscriptos];
+        for(unsigned int j = 0; j < asistencias[i].cantInscriptos; j++) {
+            temporal[i].CursosInscriptos[j] = asistencias[i].CursosInscriptos[j];
+        }
     }
-
-    Inscripcion* aux = new Inscripcion[tam];
-
-     for(unsigned int i = 0; i < tam; i++)
-        aux[i] = asistencias->CursosInscriptos[i];
-    asistencias->CursosInscriptos = aux;
+    for (unsigned int i = 0; i < tam; i++) {
+        delete[] asistencias[i].CursosInscriptos;
+    }
+    delete[] asistencias;
+    asistencias = temporal;
+    tam++;
 }
+
+
+
+//void incrementarInscripciones(Inscripcion* &insc, unsigned int &tam) {
+//    if (insc== nullptr) {
+//        insc= new Inscripcion[tam];
+//        return;
+//    }
+
+//    Inscripcion* aux = new Inscripcion[tam+1];
+
+//     for(unsigned int i = 0; i < tam-1; i++)
+//        aux[i] = insc[i];
+//     delete[] insc;
+//    insc = aux;
+//}

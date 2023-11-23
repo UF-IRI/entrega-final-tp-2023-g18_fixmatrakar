@@ -23,8 +23,7 @@
 
              cantAsistencia++;
              incrementarAsistencia(asistencias, cantAsistencia); // Incrementar el tamaño
-             incrementarInscripciones(asistencias, nuevaAsistencia->cantInscriptos);
-            asistencias[cantAsistencia - 1] = *nuevaAsistencia; // Guardar la nueva asistencia
+             asistencias[cantAsistencia - 1] = *nuevaAsistencia; // Guardar la nueva asistencia
         }
         cout << "Se leyó el archivo ";//BORRAR SOLO PARA VERIFICAR
             return cantAsistencia; // Devolver la cantidad de asistencias leídas
