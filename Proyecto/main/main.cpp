@@ -21,7 +21,7 @@ int main() {
     const int cantAsistencias = 2;
     Asistencia dummyAsistencias[cantAsistencias];
 
-    // Guardo la datos de mierda
+    // Guardo la datos
     for (int i = 0; i < cantAsistencias; i++) {
         dummyAsistencias[i].idCliente = i + 1;//id consecuente
         dummyAsistencias[i].cantInscriptos = 3; // creo 3 inscripciones
@@ -34,18 +34,18 @@ int main() {
         }
 
     }
-                             /*escribo archivodemierda*/
+                             /*escribo archivito*/
 
-ofstream Earchibinr("archivodemierda.dat", ios::binary);//Escribimos archivo con kk
+ofstream Earchibinr("archivito.dat", ios::binary);//Escribimos archivo con datos x
    if(Earchibinr.is_open()) {
         for (int i=0; i<cantAsistencias; i++) {
             Earchibinr.write((char*)&dummyAsistencias[i].idCliente, sizeof(unsigned int));
             Earchibinr.write((char*)&dummyAsistencias[i].cantInscriptos, sizeof(unsigned int));
             for(unsigned int j = 0; j < dummyAsistencias[i].cantInscriptos; j++) {
-            Earchibinr.write((char*)&dummyAsistencias[i].CursosInscriptos[j],sizeof(Inscripcion));}cout<<"se escribio archivo de mierda";}}
+            Earchibinr.write((char*)&dummyAsistencias[i].CursosInscriptos[j],sizeof(Inscripcion));}}cout<<"se escribio archivo";}
  Earchibinr.close();
 
-   /*-----------------Leo archivodemierda.dat-------------*/
+   /*-----------------Leo archivito.dat-------------*/
  ifstream Larchibinr("archivodemierda.dat", ios::binary);
  unsigned int cant=0;
  Asistencia *lectura=nullptr;

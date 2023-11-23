@@ -145,31 +145,91 @@ void incrementarClientes(Clientes* &misclientes, unsigned int &tam){
     misclientes = temporal;
 
 }
-
-
-void incrementarAsistencia(Asistencia* &asistencias, unsigned int &tam){
-    if(asistencias == nullptr){
-        tam = 1;
-        asistencias = new Asistencia[tam];
-        asistencias[tam].CursosInscriptos = new Inscripcion[asistencias->cantInscriptos];
-        return;
-    }
-
-    Asistencia* temporal = new Asistencia[tam + 1];
-    for(unsigned int i = 0; i < tam; i++)
-    {
-        temporal[i].CursosInscriptos = new Inscripcion[asistencias[i].cantInscriptos];
-        for(unsigned int j = 0; j < asistencias[i].cantInscriptos; j++) {
-            temporal[i].CursosInscriptos[j] = asistencias[i].CursosInscriptos[j];
+void incrementarAsistencia(Asistencia* &asistencias, unsigned int &tam) {
+    try {
+        if (asistencias == nullptr) {
+            tam = 1;
+            asistencias = new Asistencia[tam];
+            // Aquí asignamos memoria para CursosInscriptos en la primera Asistencia
+            asistencias[0].CursosInscriptos = new Inscripcion[asistencias[0].cantInscriptos];
+            return;
         }
-    }
-    for (unsigned int i = 0; i < tam; i++) {
-        delete[] asistencias[i].CursosInscriptos;
-    }
-    delete[] asistencias;
-    asistencias = temporal;
-    tam++;
-}
+
+        Asistencia* temporal = new Asistencia[tam + 1];
+        for (unsigned int i = 0; i < tam; i++) {
+            temporal[i].CursosInscriptos = new Inscripcion[asistencias[i].cantInscriptos];
+            for (unsigned int j = 0; j < asistencias[i].cantInscriptos; j++) {
+                temporal[i].CursosInscriptos[j] = asistencias[i].CursosInscriptos[j];
+            }
+        }
+
+
+        for (unsigned int i = 0; i < tam; i++) {
+            delete[] asistencias[i].CursosInscriptos;
+        }
+        delete[] asistencias;
+
+        asistencias = temporal;
+        tam++;
+    } catch (std::bad_alloc &ex) {
+        // Manejo de la excepción por falta de memoria
+        std::cerr << "Error: Memoria insuficiente. No se pudo asignar la memoria solicitada." << std::endl;
+
+    }}
+
+//void incrementarAsistencia(Asistencia* &asistencias, unsigned int &tam){
+//    if(asistencias == nullptr){
+//        tam = 1;
+//        asistencias = new Asistencia[tam];
+//        // Aquí asignamos memoria para CursosInscriptos en la primera Asistencia
+//        asistencias[0].CursosInscriptos = new Inscripcion[asistencias[0].cantInscriptos];
+//        return;
+//    }
+
+//    Asistencia* temporal = new Asistencia[tam + 1];
+//    for(unsigned int i = 0; i < tam; i++)
+//    {
+//        if()
+//        temporal[i].CursosInscriptos = new Inscripcion[asistencias[i].cantInscriptos];
+//        for(unsigned int j = 0; j < asistencias[i].cantInscriptos; j++) {
+//            temporal[i].CursosInscriptos[j] = asistencias[i].CursosInscriptos[j];
+//        }
+//    }
+
+//    // Liberamos la memoria de CursosInscriptos de cada Asistencia en el arreglo original
+//    for (unsigned int i = 0; i < tam; i++) {
+//        delete[] asistencias[i].CursosInscriptos;
+//    }
+//    delete[] asistencias; // Liberamos el arreglo de Asistencias original
+
+//    asistencias = temporal;
+//    tam++; // Incrementamos el tamaño en uno
+//}
+
+
+//void incrementarAsistencia(Asistencia* &asistencias, unsigned int &tam){
+//    if(asistencias == nullptr){
+//        tam = 1;
+//        asistencias = new Asistencia[tam];
+//        asistencias[tam].CursosInscriptos = new Inscripcion[asistencias->cantInscriptos];
+//        return;
+//    }
+
+//    Asistencia* temporal = new Asistencia[tam + 1];
+//    for(unsigned int i = 0; i < tam; i++)
+//    {
+//        temporal[i].CursosInscriptos = new Inscripcion;
+//        for(unsigned int j = 0; j < asistencias[i].cantInscriptos; j++) {
+//            temporal[i].CursosInscriptos[j] = asistencias[i].CursosInscriptos[j];
+//        }
+//    }
+//    for (unsigned int i = 0; i < tam; i++) {
+//        delete[] asistencias[i].CursosInscriptos;
+//    }
+//    delete[] asistencias;
+//    asistencias = temporal;
+//    tam++;
+//}
 
 
 
