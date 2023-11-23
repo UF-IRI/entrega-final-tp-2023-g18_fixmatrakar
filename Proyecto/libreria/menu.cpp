@@ -17,13 +17,7 @@
 
 //    }
 //}
-void BuscarMiClase(Clases*misclases,unsigned int tam, unsigned int idcurso){
-    for(unsigned int i=0;i<tam;i++){
-        if(misclases[i].idclase==idcurso){
-            cout<<"-"<<misclases[i].nombre<<","<<misclases[i].horario<<endl;
-        }
-    }
-}
+
 
 void menuOpciones(){
     cout<<"Que desea hacer hoy?"<<endl;
@@ -130,79 +124,3 @@ void menuHorarios(Clases*misclases,int&cont,unsigned int cant_clases, unsigned i
     }
 
 }
-ClaseSeleccionada DevolverClase(Clases*misclases,unsigned int cant_clases, unsigned int eleccion2,unsigned int eleccion3){
-
-    ClaseSeleccionada claseElegida;
-    switch(eleccion2){
-    case 1:{
-        claseElegida.nombre="Spinning";
-        break;
-    }
-    case 2:{
-        claseElegida.nombre="Yoga";
-        break;
-    }
-    case 3:{
-        claseElegida.nombre="Pilates";
-         break;
-    }
-    case 4:{
-        claseElegida.nombre="Stretching";
-          break;
-    }
-    case 5:{
-        claseElegida.nombre="Zumba";
-           break;
-    }
-    case 6:{
-        claseElegida.nombre="Boxeo";
-            break;
-    }
-    case 7:{
-        claseElegida.nombre="Musculacion";
-             break;
-    }
-
-    }
-
-    unsigned int cant_horarios=0;
-    string* mishorarios=nullptr;
-
-    for(unsigned int i=0;i<cant_clases;i++){
-        if(misclases[i].nombre==claseElegida.nombre){
-            ResizeHorarios(cant_horarios,mishorarios);
-            mishorarios[cant_horarios-1]=misclases[i].horario;
-        }
-    }
-    for(unsigned int j=0;j<cant_horarios;j++){
-        if(j==eleccion3){
-            claseElegida.horario=mishorarios[j];
-        }
-    }
-
-    for(unsigned int i=0;i<cant_clases;i++){
-        if(misclases[i].nombre==claseElegida.nombre&&misclases[i].horario==claseElegida.horario)
-            claseElegida.id= misclases[i].idclase;
-    }
-    return claseElegida;
-}
-void ResizeHorarios(unsigned int&tam, string*& mishorarios){
-    if(mishorarios==nullptr){
-        if(tam<=0){
-            mishorarios = new string[++tam];
-        }
-        return;
-    }
-
-    string* temporal = new string[++tam];
-
-    for(unsigned int i = 0; i < tam-1; i++){
-        temporal[i] = mishorarios[i];
-    }
-
-    delete[] mishorarios;
-
-    mishorarios = temporal;
-
-}
-

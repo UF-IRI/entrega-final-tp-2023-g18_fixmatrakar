@@ -25,8 +25,5 @@ typedef struct{
     int estado;
 }Clientes;
 
-typedef struct{
-    string nombre,horario;
-    unsigned int id;
-}ClaseSeleccionada;
+
 #endif // ESTRUCTURAS_H

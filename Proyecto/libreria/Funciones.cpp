@@ -1,48 +1,6 @@
 #include "Funciones.h"
 #include "global.h"
-/*typedef struct{
-    unsigned int idClase;
-    time_t fechaInscripcion;
-}Inscripcion;
-typedef struct{
-    unsigned  idCliente,cantInscriptos;
-    Inscripcion* CursosInscriptos;
-}Asistencias;
-typedef struct{
-    unsigned int idclase;
-    string nombre,horario;
-    unsigned int cupomax;//
-} Clases;
-typedef struct{
-    unsigned int idcliente;
-    string nombre,apellido,email,telefono,fechaNac;
-    int estado;
-}Clientes*/
 
-//bool hayEspacio(string nombre, Clases*clase, unsigned int idclase){
-
-//}
-bool hayEspacio(unsigned int nombre, unsigned int cupoActual, unsigned int* maximo) {
-    switch (nombre) {
-    case Spinning:
-        return (cupoActual < maximo[Spinning]);
-    case Yoga:
-        return (cupoActual < maximo[Yoga]);
-    case Pilates:
-        return (cupoActual < maximo[Pilates]);
-    case Stretching:
-        return (cupoActual < maximo[Stretching]);
-    case Zumba:
-        return (cupoActual < maximo[Zumba]);
-    case Boxeo:
-        return (cupoActual < maximo[Boxeo]);
-    default:
-        cout << "   Flashiaste ura " << endl;
-        return false; // Retorna un valor por defecto en caso de error
-    }
-
-
-}
 unsigned int ClasesRepetidas(Asistencia *&AsistUnica, unsigned int CantAsist) {
     Asistencia *aux = new Asistencia;
     aux->idCliente = AsistUnica->idCliente;
@@ -99,20 +57,15 @@ unsigned int cupoactual(Asistencia *asistencia, unsigned int idclase, unsigned i
     unsigned int contador = 0;
     unsigned int i = 0 ;
     while (i < cantAsistencias) {
-        if (asistencia->CursosInscriptos[i].idClase == idclase)
-            contador = contador + 1;
-        i++;
+            for(unsigned int j=0;j<asistencia[i].cantInscriptos;j++){
+            if(asistencia[i].CursosInscriptos[j].idClase==idclase)
+                contador++;
+            }
+            i++;
     }
     return contador;
 }
-unsigned int BuscarIdClases(Clases *clases, string horario, string nombre){
-    int i = 0;
-    while(i != 0){
-        if(clases[i].horario == horario && clases[i].nombre==nombre)
-            i = clases->idclase;
-    }
-    return i;
-}
+
 void incrementarClases(Clases* &misclases, unsigned int &tam){
     if(misclases==nullptr){
         if(tam<=0){
@@ -149,104 +102,162 @@ void incrementarClientes(Clientes* &misclientes, unsigned int &tam){
     misclientes = temporal;
 
 }
-void incrementarAsistencia(Asistencia* &asistencias, unsigned int &tam) {
-    try {
-        if (asistencias == nullptr) {
-            tam = 1;
-            asistencias = new Asistencia[tam];
-            // Aquí asignamos memoria para CursosInscriptos en la primera Asistencia
-            asistencias[0].CursosInscriptos = new Inscripcion[asistencias[0].cantInscriptos];
-            return;
+Clases DevolverClase(Clases*misclases,unsigned int cant_clases, unsigned int eleccion2,unsigned int eleccion3){
+
+    Clases claseElegida;
+    switch(eleccion2){
+    case 1:{
+        claseElegida.nombre="Spinning";
+        break;
+    }
+    case 2:{
+        claseElegida.nombre="Yoga";
+        break;
+    }
+    case 3:{
+        claseElegida.nombre="Pilates";
+        break;
+    }
+    case 4:{
+        claseElegida.nombre="Stretching";
+        break;
+    }
+    case 5:{
+        claseElegida.nombre="Zumba";
+        break;
+    }
+    case 6:{
+        claseElegida.nombre="Boxeo";
+        break;
+    }
+    case 7:{
+        claseElegida.nombre="Musculacion";
+        break;
+    }
+
+    }
+
+    unsigned int cant_horarios=0;
+    string* mishorarios=nullptr;
+
+    for(unsigned int i=0;i<cant_clases;i++){
+        if(misclases[i].nombre==claseElegida.nombre){
+            ResizeHorarios(cant_horarios,mishorarios);
+            mishorarios[cant_horarios-1]=misclases[i].horario;
+        }
+    }
+    for(unsigned int j=0;j<cant_horarios;j++){
+        if(j==eleccion3-1){
+            claseElegida.horario=mishorarios[j];
+        }
+    }
+
+    for(unsigned int i=0;i<cant_clases;i++){
+        if(misclases[i].nombre==claseElegida.nombre&&misclases[i].horario==claseElegida.horario)
+            claseElegida.idclase= misclases[i].idclase;
+    }
+    return claseElegida;
+}
+
+void ResizeHorarios(unsigned int&tam, string*& mishorarios){
+    if(mishorarios==nullptr){
+        if(tam<=0){
+            mishorarios = new string[++tam];
+        }
+        return;
+    }
+
+    string* temporal = new string[++tam];
+
+    for(unsigned int i = 0; i < tam-1; i++){
+        temporal[i] = mishorarios[i];
+    }
+
+    delete[] mishorarios;
+
+    mishorarios = temporal;
+
+}
+
+
+
+bool HayCupo(unsigned int eleccion,unsigned int cupoActual,unsigned int* cupos_maximos){
+    int ok=0;
+    switch(eleccion-1){
+    case 0:{//spinning
+        if(cupoActual<cupos_maximos[0]){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    case 1:{//yoga
+        if(cupoActual<cupos_maximos[1]){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    case 2:{//pilates
+        if(cupoActual<cupos_maximos[2]){
+            return true;
+        }else{
+            return false;
         }
 
-        Asistencia* temporal = new Asistencia[tam + 1];
-        for (unsigned int i = 0; i < tam; i++) {
-            temporal[i].CursosInscriptos = new Inscripcion[asistencias[i].cantInscriptos];
-            for (unsigned int j = 0; j < asistencias[i].cantInscriptos; j++) {
-                temporal[i].CursosInscriptos[j] = asistencias[i].CursosInscriptos[j];
-            }
+
+    }
+    case 3:{//stretching
+        if(cupoActual<cupos_maximos[3]){
+            return true;
+        }else{
+            return false;
         }
 
 
-        for (unsigned int i = 0; i < tam; i++) {
-            delete[] asistencias[i].CursosInscriptos;
+    }
+    case 4:{//zumba
+        if(cupoActual<cupos_maximos[4]){
+            return true;
+        }else{
+            return false;
         }
-        delete[] asistencias;
-
-        asistencias = temporal;
-        tam++;
-    } catch (std::bad_alloc &ex) {
-        // Manejo de la excepción por falta de memoria
-        std::cerr << "Error: Memoria insuficiente. No se pudo asignar la memoria solicitada." << std::endl;
-
-    }}
-
-//void incrementarAsistencia(Asistencia* &asistencias, unsigned int &tam){
-//    if(asistencias == nullptr){
-//        tam = 1;
-//        asistencias = new Asistencia[tam];
-//        // Aquí asignamos memoria para CursosInscriptos en la primera Asistencia
-//        asistencias[0].CursosInscriptos = new Inscripcion[asistencias[0].cantInscriptos];
-//        return;
-//    }
-
-//    Asistencia* temporal = new Asistencia[tam + 1];
-//    for(unsigned int i = 0; i < tam; i++)
-//    {
-//        if()
-//        temporal[i].CursosInscriptos = new Inscripcion[asistencias[i].cantInscriptos];
-//        for(unsigned int j = 0; j < asistencias[i].cantInscriptos; j++) {
-//            temporal[i].CursosInscriptos[j] = asistencias[i].CursosInscriptos[j];
-//        }
-//    }
-
-//    // Liberamos la memoria de CursosInscriptos de cada Asistencia en el arreglo original
-//    for (unsigned int i = 0; i < tam; i++) {
-//        delete[] asistencias[i].CursosInscriptos;
-//    }
-//    delete[] asistencias; // Liberamos el arreglo de Asistencias original
-
-//    asistencias = temporal;
-//    tam++; // Incrementamos el tamaño en uno
-//}
 
 
-//void incrementarAsistencia(Asistencia* &asistencias, unsigned int &tam){
-//    if(asistencias == nullptr){
-//        tam = 1;
-//        asistencias = new Asistencia[tam];
-//        asistencias[tam].CursosInscriptos = new Inscripcion[asistencias->cantInscriptos];
-//        return;
-//    }
-
-//    Asistencia* temporal = new Asistencia[tam + 1];
-//    for(unsigned int i = 0; i < tam; i++)
-//    {
-//        temporal[i].CursosInscriptos = new Inscripcion;
-//        for(unsigned int j = 0; j < asistencias[i].cantInscriptos; j++) {
-//            temporal[i].CursosInscriptos[j] = asistencias[i].CursosInscriptos[j];
-//        }
-//    }
-//    for (unsigned int i = 0; i < tam; i++) {
-//        delete[] asistencias[i].CursosInscriptos;
-//    }
-//    delete[] asistencias;
-//    asistencias = temporal;
-//    tam++;
-//}
+    }
+    case 5:{//boxeo
+        if(cupoActual<cupos_maximos[5]){
+            return true;
+        }else{
+            return false;
+        }
 
 
+    }
+    case 6:{//musculacion
+        if(cupoActual<cupos_maximos[6]){
+            return true;
+        }else{
+            return false;
+        }
 
-//void incrementarInscripciones(Inscripcion* &insc, unsigned int &tam) {
-//    if (insc== nullptr) {
-//        insc= new Inscripcion[tam];
-//        return;
-//    }
 
-//    Inscripcion* aux = new Inscripcion[tam+1];
+    }
+    }
 
-//     for(unsigned int i = 0; i < tam-1; i++)
-//        aux[i] = insc[i];
-//     delete[] insc;
-//    insc = aux;
-//}
+}
+
+void incrementarAsistencia(Asistencia*& asist, unsigned int &tam){
+    if(asist==nullptr){
+        asist = new Asistencia[++tam];
+        return;
+    }
+
+    Asistencia* temporal = new Asistencia[++tam];
+
+    for(unsigned int i = 0; i < tam-1; i++){
+        temporal[i] = asist[i];}
+
+
+    asist = temporal;
+}
