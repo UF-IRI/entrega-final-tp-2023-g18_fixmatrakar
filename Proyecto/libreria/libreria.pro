@@ -17,7 +17,7 @@ HEADERS += \
     Estructuras.h \
     Funciones.h \
     archivos.h \
-    libreria_global.h \
+    global.h \
     libreria.h \
     menu.h
 
