@@ -4,7 +4,7 @@
 #include "Funciones.h"
 
 int main() {
-    //---declaracion de variables--//
+//    ---declaracion de variables--//
     unsigned int cupomax[7] = {45, 25, 15, 40, 50, 30,35};
     unsigned int cant_clases=0;
     unsigned int cant_clientes=0;
@@ -14,7 +14,7 @@ int main() {
     Clases* misclases=nullptr;
     Clientes* misclientes=nullptr;
 
-    //--apertura de archivos---//
+//    --apertura de archivos---//
     ifstream archivo;
     archivo.open("C:/Qt/clasesGYM.csv",ios::in); //archivo csv clases
     lecturaClases(archivo,misclases,cant_clases);
@@ -26,32 +26,48 @@ int main() {
 
     //----Guardamos datos en Asistencias----//
 
-     int cantAsistencias = 45;
+     int cantAsistencias = 5;
     Asistencia dummyAsistencias[cantAsistencias];
 
     for (int i = 0; i < cantAsistencias; i++) {
         dummyAsistencias[i].idCliente = i + 1;
-        dummyAsistencias[i].cantInscriptos = 1;
+        dummyAsistencias[i].cantInscriptos = 2;
         dummyAsistencias[i].CursosInscriptos = new Inscripcion[dummyAsistencias[i].cantInscriptos];
 
         for (unsigned int j = 0; j < dummyAsistencias[i].cantInscriptos; j++) {
-            dummyAsistencias[i].CursosInscriptos[j].idClase=4;
+            dummyAsistencias[i].CursosInscriptos[j].idClase=8;
             dummyAsistencias[i].CursosInscriptos[j].fechaInscripcion=time(NULL);
 
         }
 
     }
-    unsigned int eleccion1=1;
-    unsigned int eleccion2=4;
-    Clases aux= DevolverClase(misclases,cant_clases,eleccion1,eleccion2);
-//    cout<<aux.nombre<<endl;
-//    cout<<aux.idclase;
+
+    ofstream Earchibinr("archivito.dat", ios::binary);//Escribimos archivo con datos x
+    if(Earchibinr.is_open()) {
+        for (int i=0; i<cantAsistencias; i++) {
+            Earchibinr.write((char*)&dummyAsistencias[i].idCliente, sizeof(unsigned int));
+            Earchibinr.write((char*)&dummyAsistencias[i].cantInscriptos, sizeof(unsigned int));
+            for(unsigned int j = 0; j < dummyAsistencias[i].cantInscriptos; j++) {
+                Earchibinr.write((char*)&dummyAsistencias[i].CursosInscriptos[j],sizeof(Inscripcion));
+            }
+        }/*cout<<"se escribio archivo"<<endl;*/
+    }
+    Earchibinr.close();
 
 
-    unsigned int cupoActual= cupoactual(dummyAsistencias,aux.idclase,cantAsistencias);
 
-    if(!HayCupo(eleccion1,cupoActual,cupomax))
-        cout<<"no hay cupo";
+//    //   /*-----------------Leo archivito.dat-------------*/
+    ifstream archivob("archivito.dat", ios::binary);
+    cant_asistencias= lecturaAsistenciaB(archivob,asistencias);
+
+    if(!ClasesRepetidas(asistencias,cant_asistencias,6,8)){
+
+        inscribir(asistencias,cant_asistencias,6,8);
+        cout<< asistencias[6].cantInscriptos<<endl;
+        cout<<cant_asistencias;
+    }
+
+
 
 
 
@@ -153,23 +169,16 @@ int main() {
 
 
 
-  return 0;
- }
 
-/*escribo archivito*/
 
-//ofstream Earchibinr("archivito.dat", ios::binary);//Escribimos archivo con datos x
-//   if(Earchibinr.is_open()) {
-//        for (int i=0; i<cantAsistencias; i++) {
-//            Earchibinr.write((char*)&dummyAsistencias[i].idCliente, sizeof(unsigned int));
-//            Earchibinr.write((char*)&dummyAsistencias[i].cantInscriptos, sizeof(unsigned int));
-//            for(unsigned int j = 0; j < dummyAsistencias[i].cantInscriptos; j++) {
-//            Earchibinr.write((char*)&dummyAsistencias[i].CursosInscriptos[j],sizeof(Inscripcion));}}cout<<"se escribio archivo";}
-// Earchibinr.close();
 
-//   /*-----------------Leo archivito.dat-------------*/
-// ifstream Larchibinr("archivodemierda.dat", ios::binary);
-// unsigned int cant=0;
-// Asistencia *lectura=nullptr;
-// cant= leerArchivoAsistenciaB(Larchibinr,lectura);
-// cout<<cant;
+
+
+
+
+
+
+ return 0;
+
+}
+

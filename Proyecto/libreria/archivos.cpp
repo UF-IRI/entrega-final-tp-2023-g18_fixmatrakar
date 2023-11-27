@@ -59,7 +59,7 @@ void lecturaClientes(ifstream &archivo, Clientes* &misclientes, unsigned int &ta
         }
     }
 }
-unsigned int lecturaAsistencia(ifstream& archi, Asistencia*& asistencias) {
+unsigned int lecturaAsistenciaB(ifstream& archi, Asistencia*& asistencias) {
     if (archi.is_open()) {
         archi.clear();
         archi.seekg(0);

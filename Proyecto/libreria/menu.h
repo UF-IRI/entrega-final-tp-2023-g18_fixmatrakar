@@ -1,6 +1,6 @@
 #ifndef MENU_H
 #define MENU_H
-#include <global.h>
+#include "global.h"
 #include"Estructuras.h"
 bool BuscarCliente(Clientes*misclientes,unsigned int idcliente, unsigned int tam);//chequeada
 void LimpiarBuffer();//chequeada

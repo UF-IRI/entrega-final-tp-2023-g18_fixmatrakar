@@ -1,57 +1,96 @@
 #include "Funciones.h"
 #include "global.h"
 
-unsigned int ClasesRepetidas(Asistencia *&AsistUnica, unsigned int CantAsist) {
-    Asistencia *aux = new Asistencia;
-    aux->idCliente = AsistUnica->idCliente;
-    aux->cantInscriptos = AsistUnica->cantInscriptos;
-    aux->CursosInscriptos = new Inscripcion[AsistUnica->cantInscriptos];
-    for(unsigned int i = 0; i < aux->cantInscriptos; i++) {
-        for(unsigned int j = i + 1; j < aux->cantInscriptos; j++) {
-            if(aux->CursosInscriptos[i].idClase == aux->CursosInscriptos[j].idClase) {
-                aux->CursosInscriptos[i].idClase = aux->CursosInscriptos[j].idClase;// Tapo la clase
-                aux->CursosInscriptos[j].idClase = aux->CursosInscriptos[aux->cantInscriptos - 1].idClase;
-                aux->cantInscriptos--; // Resto 1 a cantidad total de inscripciones
-                CantAsist--;
-                j--;
+//unsigned int ClasesRepetidas(Asistencia *&AsistUnica, unsigned int CantAsist) {
+//    Asistencia *aux = new Asistencia;
+//    aux->idCliente = AsistUnica->idCliente;
+//    aux->cantInscriptos = AsistUnica->cantInscriptos;
+//    aux->CursosInscriptos = new Inscripcion[AsistUnica->cantInscriptos];
+//    for(unsigned int i = 0; i < aux->cantInscriptos; i++) {
+//        for(unsigned int j = i + 1; j < aux->cantInscriptos; j++) {
+//            if(aux->CursosInscriptos[i].idClase == aux->CursosInscriptos[j].idClase) {
+//                aux->CursosInscriptos[i].idClase = aux->CursosInscriptos[j].idClase;// Tapo la clase
+//                aux->CursosInscriptos[j].idClase = aux->CursosInscriptos[aux->cantInscriptos - 1].idClase;
+//                aux->cantInscriptos--; // Resto 1 a cantidad total de inscripciones
+//                CantAsist--;
+//                j--;
+//            }
+//        }
+//    }
+//    delete[] AsistUnica->CursosInscriptos;
+//    delete AsistUnica;
+
+//    // Asignar la estructura auxiliar a AsistUnica
+//    AsistUnica = aux;
+
+//    return CantAsist;
+//}
+bool ClasesRepetidas(Asistencia *AsistUnica, unsigned int CantAsist, unsigned int idclase,unsigned int idcliente){
+    unsigned int i=0;
+    while(i<CantAsist){
+        if(AsistUnica[i].idCliente==idcliente){
+            unsigned int j=0;
+            while(j<AsistUnica[i].cantInscriptos){
+                if(AsistUnica[i].CursosInscriptos[j].idClase==idclase){
+                    return true;
+                }
+                j++;
             }
         }
+        i++;
     }
-    delete[] AsistUnica->CursosInscriptos;
-    delete AsistUnica;
 
-    // Asignar la estructura auxiliar a AsistUnica
-    AsistUnica = aux;
+    return false;
 
-    return CantAsist;
 }
 
 
-void inscribir(Asistencia *& asist,unsigned int &CantAsistencias, unsigned int idcliente){
 
-        Asistencia* nuevasAsistencias = new Asistencia[CantAsistencias + 1];
+void inscribir(Asistencia *&asistencias, unsigned int &cant_asistencias,unsigned int idclase,unsigned int idcliente){
+    for(unsigned int i=0;i<cant_asistencias;i++){
+        if(asistencias[i].idCliente==idcliente){
 
-
-        for (unsigned int i = 0; i < CantAsistencias ; i++) {
-            nuevasAsistencias[i] = asist[i];
+            asistencias[i].CursosInscriptos=new Inscripcion[++asistencias[i].cantInscriptos];
+            asistencias[i].CursosInscriptos[asistencias[i].cantInscriptos-1].idClase=idclase;
+            asistencias[i].CursosInscriptos[asistencias[i].cantInscriptos-1].fechaInscripcion=time(0);
+            return;
         }
-
-        // Agrega la nueva asistencia al final
-        nuevasAsistencias[CantAsistencias ].idCliente = idcliente;
-        nuevasAsistencias[CantAsistencias ].cantInscriptos = asist->cantInscriptos++;
-        nuevasAsistencias[CantAsistencias ].CursosInscriptos = new Inscripcion[asist->cantInscriptos];
-        for (unsigned int i = 0; i < CantAsistencias; i++) {
-            nuevasAsistencias[CantAsistencias].CursosInscriptos[i] = asist->CursosInscriptos[i];       }
-
-
-        CantAsistencias++;
-
-
-        delete[] asist;
-
-        asist = nuevasAsistencias;
     }
 
+        incrementarAsistencia(asistencias,cant_asistencias);
+        asistencias[cant_asistencias-1].idCliente=idcliente;
+        asistencias[cant_asistencias-1].cantInscriptos=1;
+        asistencias[cant_asistencias-1].CursosInscriptos=new Inscripcion;
+        asistencias[cant_asistencias-1].CursosInscriptos->idClase=idclase;
+        asistencias[cant_asistencias-1].CursosInscriptos->fechaInscripcion=time(0);
+        return;
+
+}
+
+//void inscribir(Asistencia *& asist,unsigned int &CantAsistencias, unsigned int idcliente){
+
+//        Asistencia* nuevasAsistencias = new Asistencia[CantAsistencias + 1];
+
+
+//        for (unsigned int i = 0; i < CantAsistencias ; i++) {
+//            nuevasAsistencias[i] = asist[i];
+//        }
+
+//        // Agrega la nueva asistencia al final
+//        nuevasAsistencias[CantAsistencias ].idCliente = idcliente;
+//        nuevasAsistencias[CantAsistencias ].cantInscriptos = asist->cantInscriptos++;
+//        nuevasAsistencias[CantAsistencias ].CursosInscriptos = new Inscripcion[asist->cantInscriptos];
+//        for (unsigned int i = 0; i < CantAsistencias; i++) {
+//            nuevasAsistencias[CantAsistencias].CursosInscriptos[i] = asist->CursosInscriptos[i];       }
+
+
+//        CantAsistencias++;
+
+
+//        delete[] asist;
+
+//        asist = nuevasAsistencias;
+//}
 
 unsigned int cupoactual(Asistencia *asistencia, unsigned int idclase, unsigned int cantAsistencias) {
     unsigned int contador = 0;
@@ -182,7 +221,7 @@ void ResizeHorarios(unsigned int&tam, string*& mishorarios){
 
 
 bool HayCupo(unsigned int eleccion,unsigned int cupoActual,unsigned int* cupos_maximos){
-    int ok=0;
+
     switch(eleccion-1){
     case 0:{//spinning
         if(cupoActual<cupos_maximos[0]){
@@ -258,6 +297,7 @@ void incrementarAsistencia(Asistencia*& asist, unsigned int &tam){
     for(unsigned int i = 0; i < tam-1; i++){
         temporal[i] = asist[i];}
 
+    delete[]asist;
 
     asist = temporal;
 }
