@@ -79,6 +79,7 @@ void menuHorarios(Clases*misclases,int&cont,unsigned int cant_clases, unsigned i
                 cout<<++cont<<"-"<<misclases[i].horario<<"hs"<<endl;
             }
         }
+        break;
     }
     case 5: {
         for(unsigned int i=0;i<cant_clases;i++){

@@ -35,7 +35,7 @@ int main() {
         dummyAsistencias[i].CursosInscriptos = new Inscripcion[dummyAsistencias[i].cantInscriptos];
 
         for (unsigned int j = 0; j < dummyAsistencias[i].cantInscriptos; j++) {
-            dummyAsistencias[i].CursosInscriptos[j].idClase=8;
+            dummyAsistencias[i].CursosInscriptos[j].idClase=1;
             dummyAsistencias[i].CursosInscriptos[j].fechaInscripcion=time(NULL);
 
         }
@@ -60,15 +60,7 @@ int main() {
     ifstream archivob("archivito.dat", ios::binary);
     cant_asistencias= lecturaAsistenciaB(archivob,asistencias);
 
-    if(!ClasesRepetidas(asistencias,cant_asistencias,6,8)){
-
-        inscribir(asistencias,cant_asistencias,6,8);
-        cout<< asistencias[6].cantInscriptos<<endl;
-        cout<<cant_asistencias;
-    }
-
-
-
+    cout<< cant_asistencias;
 
 
     //menu//
@@ -131,6 +123,9 @@ int main() {
 //                                    }
 //                                else{
 //                                        Clases aux= DevolverClase(misclases,cant_clases,eleccion2,eleccion3);
+//                                        cout<<aux.idclase<<","<<aux.nombre<<" "<<aux.horario<<"hs"<<endl;
+//                                        unsigned int cupoActual=cupoactual(asistencias,aux.idclase,cant_asistencias);
+//                                        cout<<cupoActual;
 
 
 //                                }

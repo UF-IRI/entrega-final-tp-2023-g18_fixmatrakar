@@ -85,4 +85,3 @@ unsigned int lecturaAsistenciaB(ifstream& archi, Asistencia*& asistencias) {
     }
 }
 
-
