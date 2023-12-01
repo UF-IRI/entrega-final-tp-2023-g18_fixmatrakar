@@ -80,8 +80,20 @@ unsigned int lecturaAsistenciaB(ifstream& archi, Asistencia*& asistencias) {
                 archi.read((char*)&nuevaAsistencia->CursosInscriptos[j], sizeof(Inscripcion)); // Leer cada inscripcion
             }
         }
-
+        reducirMemoria(cantAsistencia,asistencias);
         return cantAsistencia; // Devolver la cantidad de asistencias leídas
+    }
+}
+
+void EscrituraBinario(ofstream& archivo, Asistencia* asistencias, unsigned int tam){
+    if(archivo.is_open()) {
+        for (int i=0; i<tam; i++) {
+            archivo.write((char*)&asistencias[i].idCliente, sizeof(unsigned int));
+            archivo.write((char*)&asistencias[i].cantInscriptos, sizeof(unsigned int));
+            for(unsigned int j = 0; j < asistencias[i].cantInscriptos; j++) {
+                archivo.write((char*)&asistencias[i].CursosInscriptos[j],sizeof(Inscripcion));
+            }
+        }
     }
 }
 

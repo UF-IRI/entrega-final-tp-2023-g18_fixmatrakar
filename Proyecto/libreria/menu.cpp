@@ -45,6 +45,7 @@ void menuClases(Clases*misclases,unsigned int tam){
             variable=misclases[i].nombre;
         }
     }
+    cout<<++numero<<"-ATRAS"<<endl;
 }
 void menuHorarios(Clases*misclases,int&cont,unsigned int cant_clases, unsigned int eleccion){
 
@@ -55,6 +56,7 @@ void menuHorarios(Clases*misclases,int&cont,unsigned int cant_clases, unsigned i
                 cout<<++cont<<"-"<<misclases[i].horario<<"hs"<<endl;
             }
         }
+        cout<<++cont<<"-ATRAS"<<endl;
         break;
     }
     case 2:{
@@ -63,6 +65,7 @@ void menuHorarios(Clases*misclases,int&cont,unsigned int cant_clases, unsigned i
                 cout<<++cont<<"-"<<misclases[i].horario<<"hs"<<endl;
             }
         }
+        cout<<++cont<<"-ATRAS"<<endl;
         break;
     }
     case 3:{
@@ -71,6 +74,7 @@ void menuHorarios(Clases*misclases,int&cont,unsigned int cant_clases, unsigned i
                 cout<<++cont<<"-"<<misclases[i].horario<<endl;
             }
         }
+        cout<<++cont<<"-ATRAS"<<endl;
         break;
     }
     case 4: {
@@ -79,6 +83,7 @@ void menuHorarios(Clases*misclases,int&cont,unsigned int cant_clases, unsigned i
                 cout<<++cont<<"-"<<misclases[i].horario<<"hs"<<endl;
             }
         }
+        cout<<++cont<<"-ATRAS"<<endl;
         break;
     }
     case 5: {
@@ -87,6 +92,7 @@ void menuHorarios(Clases*misclases,int&cont,unsigned int cant_clases, unsigned i
                 cout<<++cont<<"-"<<misclases[i].horario<<"hs"<<endl;
             }
         }
+        cout<<++cont<<"-ATRAS"<<endl;
         break;
     }
     case 6: {
@@ -95,6 +101,7 @@ void menuHorarios(Clases*misclases,int&cont,unsigned int cant_clases, unsigned i
                 cout<<++cont<<"-"<<misclases[i].horario<<"hs"<<endl;
             }
         }
+        cout<<++cont<<"-ATRAS"<<endl;
         break;
     }
     case 7: {
@@ -103,6 +110,7 @@ void menuHorarios(Clases*misclases,int&cont,unsigned int cant_clases, unsigned i
                 cout<<++cont<<"-"<<misclases[i].horario<<"hs"<<endl;
             }
         }
+        cout<<++cont<<"-ATRAS"<<endl;
         break;
     }
 

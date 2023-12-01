@@ -9,7 +9,7 @@ int diaDeHoy();//chequeada
 void menuHorarios(Clases*misclases,int&cont,unsigned int cant_clases, unsigned int eleccion);//chequeada
 void clienteNombre(Clientes*misclientes,unsigned int cant_clientes,unsigned int id);//chequeada
 void menuOpciones();//chequeada
-void VerMisClases(Asistencia*asistencias,Clases*misclases,int tam,int idcliente);
+
 
 
 
