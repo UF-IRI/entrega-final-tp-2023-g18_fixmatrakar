@@ -26,7 +26,7 @@ int main() {
 
     //----Guardamos datos en Asistencias----//
 
-     int cantAsistencias = 45;
+     int cantAsistencias = 5;
     Asistencia dummyAsistencias[cantAsistencias];
 
 
@@ -86,93 +86,13 @@ int main() {
 
             }
             case 4:{//jueves
-                //--abrimos el archivo de clases del dia viernes y lo leemos---//
-                ifstream archivob("archivito.dat", ios::binary);
-                cant_asistencias= lecturaAsistenciaB(archivob,asistencias);
 
-                archivob.close();
-
-                unsigned int eleccion1=0;
-                bool continuar;
-
-
-                do{
-
-                    continuar=false;
-                    //-----------
-                    menuOpciones();
-                    cin>>eleccion1;
-                    if(cin.fail()||eleccion1>3){
-                        LimpiarBuffer();
-                        eleccion1=0;
-                    }else{
-                        switch(eleccion1){
-                        case 1:{//anotarse
-                            int eleccion2=0;
-                            do{
-                            menuClases(misclases,cant_clases);
-                            cin>>eleccion2;
-
-                            if(cin.fail()||eleccion2>8){
-                                LimpiarBuffer();
-                                eleccion2=0;
-                            }
-                            else{
-                                int cont=0;
-                                int eleccion3=0;
-                                do{
-                                menuHorarios(misclases,cont,cant_clases,eleccion2);
-                                    cin>>eleccion3;
-                                if(cin.fail()||eleccion3>cont){
-                                        LimpiarBuffer();
-                                        eleccion3=0;
-                                        cont=0;
-                                    }
-                                else{
-                                        Clases aux= DevolverClase(misclases,cant_clases,eleccion2,eleccion3);
-                                        cout<<"Usted eligio:"<<aux.idclase<<","<<aux.nombre<<" "<<aux.horario<<"hs"<<endl;
-                                        if(!ClasesRepetidas(asistencias,cant_asistencias,aux.idclase,idcliente)){
-                                            unsigned int cupoActual=cupoactual(asistencias,aux.idclase,cant_asistencias);
-                                            if(HayCupo(eleccion2,cupoActual,cupomax)){
-                                                inscribir(asistencias,cant_asistencias,aux.idclase,idcliente);
-//                                                 ofstream nuevoArchivo("archivito.dat", ios::binary);
-//                                                 EscrituraBinario(nuevoArchivo,asistencias,cant_asistencias);
-                                                cout<<"Su clase se agrego exitosamente\n"<<endl;
-
-
-                                                 continuar=true;
-
-                                            }else{
-                                                cout<<"Ya no hay cupo en esta clase\n"<<endl;
-                                                 continuar=true;
-                                            }
-
-                                        }else{
-                                            cout<<"Usted ya esta anotado en esta clase\n"<<endl;
-                                            continuar=true;
-
-                                        }
-
-
-
-                                }
-                                } while(!(cin.fail())&&eleccion3==0);
-                                }
-
-                            }while(!(cin.fail())&&eleccion2==0);
-
-                        }
-                        case 2:{// ver mis clases
-
-                        }
-                        case 3:break;
-                        }
-
-                    }
-                }while(!(cin.fail())&&eleccion1==0||continuar);
 
             }
             case 5:{//viernes
+
+            }
+            case 6:{//sabado
                 //--abrimos el archivo de clases del dia viernes y lo leemos---//
                 ifstream archivob("archivito.dat", ios::binary);
                 cant_asistencias= lecturaAsistenciaB(archivob,asistencias);
@@ -195,7 +115,7 @@ int main() {
                     }else{
                         switch(eleccion1){
                         case 1:{//anotarse
-                            int eleccion2=0;
+                          unsigned  int eleccion2=0;
 
                             do{
 
@@ -203,12 +123,12 @@ int main() {
                             cin>>eleccion2;
 
 
-                            if(cin.fail()||eleccion2>8){
+                            if(cin.fail()||eleccion2>8||eleccion2<1){
                                 LimpiarBuffer();
                                 eleccion2=0;
 
                             }
-//
+                            //
                             else{
                                 if(eleccion2==8){
                                 eleccion2=0;
@@ -217,14 +137,14 @@ int main() {
                                 }
 
                                 int cont=0;
-                                int eleccion3=0;
+                                unsigned int eleccion3=0;
                                 do{
                                 atras2=false;
 
                                 menuHorarios(misclases,cont,cant_clases,eleccion2);
                                 cin>>eleccion3;
 
-                                if(cin.fail()||eleccion3>cont){
+                                if(cin.fail()||eleccion3>cont||eleccion3<1){
                                         LimpiarBuffer();
                                         eleccion3=0;
                                         cont=0;
@@ -237,15 +157,20 @@ int main() {
                                             atras2=true;
                                             break;
                                         }
-                                        Clases aux= DevolverClase(misclases,cant_clases,eleccion2,eleccion3);
-                                        cout<<"Usted eligio:"<<aux.idclase<<","<<aux.nombre<<" "<<aux.horario<<"hs"<<endl;
-                                        if(!ClasesRepetidas(asistencias,cant_asistencias,aux.idclase,idcliente)){
-                                            unsigned int cupoActual=cupoactual(asistencias,aux.idclase,cant_asistencias);
+                                        Clases ClaseE= DevolverClase(misclases,cant_clases,eleccion2,eleccion3);
+                                        cout<<"Usted eligio:"<<ClaseE.idclase<<","<<ClaseE.nombre<<" "<<ClaseE.horario<<"hs"<<endl;
+                                        if(HorarioRepetido(asistencias,misclases,cant_asistencias,ClaseE,cant_clases,idcliente)&&!ClasesRepetidas(asistencias,cant_asistencias,ClaseE.idclase,idcliente)){
+                                            cout<<"Ya tiene una clase registrada en ese horario\n"<<endl;
+                                            continuar=true;
+                                        }else{
+                                        if(!ClasesRepetidas(asistencias,cant_asistencias,ClaseE.idclase,idcliente)){
+                                            unsigned int cupoActual=cupoactual(asistencias,ClaseE.idclase,cant_asistencias);
                                             if(HayCupo(eleccion2,cupoActual,cupomax)){
-                                                 inscribir(asistencias,cant_asistencias,aux.idclase,idcliente);
+                                                 inscribir(asistencias,cant_asistencias,ClaseE.idclase,idcliente);
                                                  ofstream nuevoArchivo("archivito.dat", ios::binary);
                                                  EscrituraBinario(nuevoArchivo,asistencias,cant_asistencias);
                                                  cout<<"Su clase se agrego exitosamente\n"<<endl;
+                                                 cout<<cant_asistencias<<endl;
 
 
                                                  continuar=true;
@@ -262,7 +187,7 @@ int main() {
                                         }
 
 
-
+                                        }
                                 }
                                 } while(!(cin.fail())&&eleccion3==0);
 
@@ -287,8 +212,6 @@ int main() {
                     }
                 }while(!(cin.fail())&&eleccion1==0||continuar||atras);
 
-            }
-            case 6:{//sabado
 
             }
 
@@ -316,4 +239,6 @@ int main() {
  return 0;
 
 }
+
+
 

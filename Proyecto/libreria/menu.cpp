@@ -16,7 +16,7 @@ void clienteNombre(Clientes*misclientes,unsigned int cant_clientes,unsigned int 
 
         }
     }
-}
+}// damos la bienvenida mostrando el nombre del cliente
 int diaDeHoy(){
     time_t tiempo= time(0);
     tm* tiempoInfo= localtime(&tiempo); //+86400 para cambiar de dia
@@ -28,7 +28,7 @@ bool BuscarCliente(Clientes*misclientes,unsigned int idcliente, unsigned int tam
             return true;
     }
     return false;
-}
+}// segun el horario del ordenador, devuelve que dia de la semana es
 
 void LimpiarBuffer(){
     cin.clear(); //
@@ -46,7 +46,7 @@ void menuClases(Clases*misclases,unsigned int tam){
         }
     }
     cout<<++numero<<"-ATRAS"<<endl;
-}
+}//imprimios el menu de clases desde la estructura de clases.
 void menuHorarios(Clases*misclases,int&cont,unsigned int cant_clases, unsigned int eleccion){
 
     switch(eleccion){

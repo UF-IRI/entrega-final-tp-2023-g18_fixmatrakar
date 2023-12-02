@@ -6,8 +6,8 @@
 //enums//
 
 
-
-Clases BuscarAux(Clases*misclases,unsigned int idclase, unsigned int cant_clases);
+bool HorarioRepetido(Asistencia* asistencias,Clases* misclases, unsigned int cantAsist,Clases ClaseE,unsigned int cant_clases,unsigned int idcliente);
+Clases BuscarAux(Clases*misclases,unsigned int idclase, unsigned int cant_clases);//chequeada
 bool ClasesRepetidas(Asistencia *AsistUnica, unsigned int CantAsist, unsigned int idclase,unsigned int idcliente);//chequeada
 unsigned int cupoactual(Asistencia* asistencias, unsigned int idclase, unsigned int cantAsistencias); //chequeada
 void inscribir(Asistencia *&asistencias, unsigned int &cant_asistencias, unsigned int idclase,unsigned int idcliente);//chequeada

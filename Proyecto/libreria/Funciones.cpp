@@ -1,5 +1,24 @@
 #include "Funciones.h"
 #include "global.h"
+
+bool HorarioRepetido(Asistencia* asistencias,Clases* misclases, unsigned int cantAsist,Clases ClaseE,unsigned int cant_clases,unsigned int idcliente){
+    unsigned int i=0;
+    Clases aux;
+    while(i<cantAsist){
+        if(asistencias[i].idCliente==idcliente){
+            unsigned int j=0;
+            while(j<asistencias[i].cantInscriptos){
+                aux=BuscarAux(misclases,asistencias[i].CursosInscriptos[j].idClase,cant_clases);
+                if(ClaseE.horario==aux.horario){
+                    return true;
+                }
+                j++;
+            }
+        }
+        i++;
+    }
+    return false;
+}
 Clases BuscarAux(Clases*misclases,unsigned int idclase, unsigned int cant_clases){
     Clases aux;
     for(unsigned int i=0;i<cant_clases;i++){
@@ -9,19 +28,27 @@ Clases BuscarAux(Clases*misclases,unsigned int idclase, unsigned int cant_clases
             break;
         }
     }
-    return aux;
+    return aux;//esta funcion la usamos en ver mis clases para no imprimir solo el id, y para horario repetidos
 }
 void VermisClases(Asistencia* asistencias,Clases*misclases,unsigned int cant_asistencias,unsigned int cant_clases,unsigned int idcliente){
+    bool hayclases=false;
     for(unsigned int i=0;i<cant_asistencias;i++){
         if(asistencias[i].idCliente==idcliente){
             cout<<"----MIS CLASES-----"<<endl;
+            hayclases=true;
             for(unsigned int j=0;j<asistencias[i].cantInscriptos;j++){
                 Clases aux= BuscarAux(misclases,asistencias[i].CursosInscriptos[j].idClase,cant_clases);
                 cout<<j+1<<"-"<<aux.nombre<<","<<aux.horario<<"hs"<<",ID:"<<aux.idclase<<endl;
 
             }
+            break;
+
         }
     }
+    if(!hayclases){
+        cout<<"Todavia no esta inscripto en ninguna clase"<<endl;
+    }
+
 }
 bool ClasesRepetidas(Asistencia *AsistUnica, unsigned int CantAsist, unsigned int idclase,unsigned int idcliente){
     unsigned int i=0;
@@ -45,8 +72,10 @@ bool ClasesRepetidas(Asistencia *AsistUnica, unsigned int CantAsist, unsigned in
 
 
 void inscribir(Asistencia *&asistencias, unsigned int &cant_asistencias, unsigned int idclase, unsigned int idcliente) {
+    bool clienteEncontrado = false;
     for(unsigned int i = 0; i < cant_asistencias; i++) {
         if(asistencias[i].idCliente == idcliente) {
+            clienteEncontrado=true;
             asistencias[i].cantInscriptos++;
 
             Inscripcion *nuevoArray = new Inscripcion[asistencias[i].cantInscriptos];
@@ -65,17 +94,20 @@ void inscribir(Asistencia *&asistencias, unsigned int &cant_asistencias, unsigne
 
             // Asignamos el nuevo array
             asistencias[i].CursosInscriptos = nuevoArray;
-            return;
+            break;
         }
+
     }
 
     // Si el cliente no existe, incrementamos la asistencia y agregamos la inscripción
+    if(!clienteEncontrado){
     incrementarAsistencia(asistencias, cant_asistencias);
     asistencias[cant_asistencias - 1].idCliente = idcliente;
     asistencias[cant_asistencias - 1].cantInscriptos = 1;
-    asistencias[cant_asistencias - 1].CursosInscriptos = new Inscripcion[1];
-    asistencias[cant_asistencias - 1].CursosInscriptos[0].idClase = idclase;
-    asistencias[cant_asistencias - 1].CursosInscriptos[0].fechaInscripcion = time(0);
+    asistencias[cant_asistencias - 1].CursosInscriptos = new Inscripcion;
+    asistencias[cant_asistencias - 1].CursosInscriptos->idClase = idclase;
+    asistencias[cant_asistencias - 1].CursosInscriptos->fechaInscripcion = time(0);
+    }
 }
 
 
@@ -91,7 +123,7 @@ unsigned int cupoactual(Asistencia *asistencia, unsigned int idclase, unsigned i
             i++;
     }
     return contador;
-}
+}//solo leemos el cupo actual de la clase de interes
 
 void incrementarClases(Clases* &misclases, unsigned int &tam){
     if(misclases==nullptr){
@@ -162,7 +194,7 @@ Clases DevolverClase(Clases*misclases,unsigned int cant_clases, unsigned int ele
         break;
     }
 
-    }
+    }//segun la eleccion 2(eleccion de la clase) guardamos el nombre correspondiente en un auxiliar
 
     unsigned int cant_horarios=0;
     string* mishorarios=nullptr;
@@ -172,12 +204,14 @@ Clases DevolverClase(Clases*misclases,unsigned int cant_clases, unsigned int ele
             ResizeHorarios(cant_horarios,mishorarios);
             mishorarios[cant_horarios-1]=misclases[i].horario;
         }
-    }
+    }//guardamos en un array todos los horarios que le correspondan a la clase elegida
     for(unsigned int j=0;j<cant_horarios;j++){
         if(j==eleccion3-1){
             claseElegida.horario=mishorarios[j];
         }
-    }
+    }//como la cantidad y el orden de los horarios es igual a la que mostramos en pantalla al usuario
+    //cuando coincida la posicion con eleccion3-1, guardamos en el aux.
+    //eleccion3-1 porque en pantalla se imprime a partir del 1
 
     for(unsigned int i=0;i<cant_clases;i++){
         if(misclases[i].nombre==claseElegida.nombre&&misclases[i].horario==claseElegida.horario)
