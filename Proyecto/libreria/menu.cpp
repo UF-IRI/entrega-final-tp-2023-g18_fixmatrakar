@@ -28,7 +28,7 @@ bool BuscarCliente(Clientes*misclientes,unsigned int idcliente, unsigned int tam
             return true;
     }
     return false;
-}// segun el horario del ordenador, devuelve que dia de la semana es
+}
 
 void LimpiarBuffer(){
     cin.clear(); //
@@ -71,7 +71,7 @@ void menuHorarios(Clases*misclases,int&cont,unsigned int cant_clases, unsigned i
     case 3:{
         for(unsigned int i=0;i<cant_clases;i++){
             if(misclases[i].nombre=="Pilates"){
-                cout<<++cont<<"-"<<misclases[i].horario<<endl;
+                cout<<++cont<<"-"<<misclases[i].horario<<"hs"<<endl;
             }
         }
         cout<<++cont<<"-ATRAS"<<endl;

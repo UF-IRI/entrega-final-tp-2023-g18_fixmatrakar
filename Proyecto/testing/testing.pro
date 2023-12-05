@@ -12,7 +12,9 @@ isEmpty(CATCH_INCLUDE_DIR): {
 }
 
 SOURCES += \
+    funcionesT.cpp \
     main.cpp \
+    menuT.cpp \
     tst_proyecto.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../libreria/release/ -llibreria
