@@ -79,7 +79,9 @@ unsigned int lecturaAsistenciaB(ifstream& archi, Asistencia*& asistencias) {
             for (unsigned int j = 0; j < nuevaAsistencia->cantInscriptos; j++) {
                 archi.read((char*)&nuevaAsistencia->CursosInscriptos[j], sizeof(Inscripcion)); // Leer cada inscripcion
             }
+
         }
+
         reducirMemoria(cantAsistencia,asistencias);
         return cantAsistencia; // Devolver la cantidad de asistencias leídas
     }
