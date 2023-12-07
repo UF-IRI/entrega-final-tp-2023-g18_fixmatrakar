@@ -23,44 +23,6 @@ int main() {
     lecturaClientes(archivo,misclientes,cant_clientes);
     archivo.close();
 
-    int cantAsistencias = 4;
-    int cont1=1;
-    int cont2=3;
-
-//    Asistencia dummyAsistencias[cantAsistencias];
-//    for (int i = 0; i < cantAsistencias; i++) {
-
-//        dummyAsistencias[i].idCliente = i+cont1;
-//        dummyAsistencias[i].cantInscriptos =4;
-//        dummyAsistencias[i].CursosInscriptos = new Inscripcion[dummyAsistencias[i].cantInscriptos];
-//        for (unsigned int j = 0; j < dummyAsistencias[i].cantInscriptos; j++) {
-//            cont2+=j+2;
-//            dummyAsistencias[i].CursosInscriptos[j].idClase=cont2;
-//            dummyAsistencias[i].CursosInscriptos[j].fechaInscripcion=time(NULL);
-//        }
-//        cont2=3;
-//        cont1++;
-//    }
-//    ofstream Earchibinr("archivito.dat", ios::binary);//Escribimos archivo con datos x
-//    if(Earchibinr.is_open()) {
-//        for (int i=0; i<cantAsistencias; i++) {
-//            Earchibinr.write((char*)&dummyAsistencias[i].idCliente, sizeof(unsigned int));
-//            Earchibinr.write((char*)&dummyAsistencias[i].cantInscriptos, sizeof(unsigned int));
-//            for(unsigned int j = 0; j < dummyAsistencias[i].cantInscriptos; j++) {
-//                Earchibinr.write((char*)&dummyAsistencias[i].CursosInscriptos[j],sizeof(Inscripcion));
-//            }
-//        }/*cout<<"se escribio archivo"<<endl;*/
-//    }
-//    Earchibinr.close();
-
-//    cout<<dummyAsistencias[0].CursosInscriptos[0].idClase;
-
-
-
-
-
-
-
 
     //menu//
 
